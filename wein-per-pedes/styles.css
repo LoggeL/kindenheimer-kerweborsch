@@ -7,16 +7,16 @@
    ============================================ */
 :root {
   /* Colors - refined wine palette */
-  --color-primary: #722F37;
-  --color-primary-dark: #5A1E25;
-  --color-primary-light: #8B4049;
-  --color-accent: #C4956A;
-  --color-accent-light: #D4AD85;
-  --color-accent-dark: #A67B52;
+  --color-primary: #3d6b4a;
+  --color-primary-dark: #2d4a38;
+  --color-primary-light: #5a8a68;
+  --color-accent: #b8792a;
+  --color-accent-light: #c99040;
+  --color-accent-dark: #9a6020;
   --color-blue: #66b5fe;
   --color-blue-light: #94ccff;
-  --color-wine-cream: #FDF5EC;
-  --color-wine-blush: #F5E6E0;
+  --color-wine-cream: #faf7f2;
+  --color-wine-blush: #f0ebe0;
 
   /* Neutrals */
   --color-white: #ffffff;
