@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Interaktive Karte für den Weinwandertag WeinPerPedes durch Bockenheim und Kindenheim in der Pfalz">
+  <meta name="theme-color" content="#722F37">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>WeinPerPedes - Bockenheim/Kindenheim</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="wppLogo.svg">
+  <link rel="apple-touch-icon" href="wppLogo.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous">
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#3d6b4a;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:52px;font-family:sans-serif;">
+  <a href="../" style="color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.85rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">← Zurück</a>
+  <span style="color:#c99040;font-weight:700;font-size:0.95rem;">🎡 Kindenheimer Kerweborsch</span>
+</div>
+<div style="height:52px;"></div>
+
+  <!-- Header -->
+  <header class="header" role="banner">
+    <img src="wppLogo.svg" alt="WeinPerPedes Logo" class="header-logo">
+    <div class="header-content">
+      <h1 class="header-title">WeinPerPedes</h1>
+      <p class="header-subtitle">Weinwandertag Bockenheim & Kindenheim</p>
+    </div>
+    <button id="about-btn" class="header-btn" type="button" aria-label="Über das Event">
+      <i class="fas fa-info-circle" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <!-- About Modal -->
+  <div id="about-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Über WeinPerPedes">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Über WeinPerPedes</h2>
+        <button id="modal-close" class="modal-close" type="button" aria-label="Schließen">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="about-hero">
+          <img src="wppLogo.svg" alt="WeinPerPedes Logo" class="about-logo">
+          <div class="about-hero-text">
+            <p class="about-tagline">Wein. Wandern. Genuss.</p>
+            <p class="about-date"><i class="fas fa-calendar-alt"></i> Jedes Jahr am 2. Sonntag im Mai (Muttertag)</p>
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h3><i class="fas fa-wine-glass-alt"></i> Das Event</h3>
+          <p>
+            WeinPerPedes ist ein Weinwandertag durch die malerischen Weinberge von
+            Bockenheim und Kindenheim in der Pfalz. Auf einer ca. <strong>9 km langen Route</strong>
+            bieten <strong>8 ortsansässige Weingüter und Vereine</strong> ihre besten Weine,
+            regionale Spezialitäten und kulinarische Köstlichkeiten an.
+          </p>
+        </div>
+
+        <div class="about-section">
+          <h3><i class="fas fa-mountain"></i> Die Strecke</h3>
+          <p>
+            Die Wanderung führt durch die reizvolle Landschaft der Bockenheimer und
+            Kindenheimer Weinberge und bietet fantastische Ausblicke über die Rheinebene
+            bis hin zum Odenwald. An jeder Station können Wanderer innehalten,
+            die Aussicht genießen und sich mit Pfälzer Weinen und Spezialitäten stärken.
+          </p>
+        </div>
+
+        <div class="about-section">
+          <h3><i class="fas fa-map-marked-alt"></i> So funktioniert's</h3>
+          <p>
+            Nutze diese interaktive Karte, um die Wanderroute und alle Stationen zu sehen.
+            Tippe auf eine Station, um Details zu Weinen und Speisen zu erhalten.
+            Aktiviere die Standortverfolgung, um deinen aktuellen Standort auf der Karte zu sehen.
+          </p>
+        </div>
+
+        <div class="about-stats">
+          <div class="about-stat">
+            <span class="about-stat-number">~9 km</span>
+            <span class="about-stat-label">Strecke</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-number">8</span>
+            <span class="about-stat-label">Stationen</span>
+          </div>
+          <div class="about-stat">
+            <span class="about-stat-number">Mai</span>
+            <span class="about-stat-label">Muttertag</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main" role="main">
+    <!-- Map Container -->
+    <div id="map" role="application" aria-label="Interaktive Karte"></div>
+
+    <!-- Location Button -->
+    <button id="locate-btn"
+            class="locate-btn"
+            type="button"
+            aria-label="Meinen Standort anzeigen"
+            title="Meinen Standort anzeigen">
+      <i class="fas fa-location-crosshairs" aria-hidden="true"></i>
+    </button>
+
+    <!-- Station Info Panel -->
+    <aside id="station-panel" class="station-panel" role="complementary" aria-label="Stationsdetails">
+      <div class="panel-header">
+        <button id="panel-toggle"
+                class="panel-toggle"
+                type="button"
+                aria-label="Panel ein-/ausklappen">
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <h2 id="station-title" class="panel-title">Station</h2>
+        <button id="panel-close"
+                class="panel-close"
+                type="button"
+                aria-label="Panel schließen">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="station-content" class="panel-content">
+        <!-- Dynamic content inserted here -->
+      </div>
+    </aside>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <p>&copy; 2026 WeinPerPedes &mdash; <a href="https://www.lmf.logge.top" target="_blank" rel="noopener">LMF</a></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  <script src="stations.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
