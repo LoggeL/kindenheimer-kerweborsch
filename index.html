@@ -6,390 +6,491 @@
     <title>Kindenheimer Kerweborsch</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --green-dark: #1a6b2a;
-            --green-mid: #2d8a3e;
-            --green-light: #3db352;
-            --yellow: #f5c518;
-            --yellow-dark: #d4a017;
-            --white: #ffffff;
-            --gray-light: #f8f9fa;
-            --gray: #6c757d;
-            --text: #1a1a1a;
+            --cream:      #faf7f2;
+            --cream-dark: #f0ebe0;
+            --forest:     #2c5530;
+            --forest-mid: #3d7044;
+            --forest-light: #5a9461;
+            --gold:       #c8882a;
+            --gold-light: #e6a840;
+            --gold-pale:  #f5e6c8;
+            --text:       #1c1c1c;
+            --text-muted: #6b6b6b;
+            --white:      #ffffff;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Lato', sans-serif;
+            background: var(--cream);
             color: var(--text);
-            background: var(--white);
+            font-weight: 400;
         }
 
-        /* ── NAV ── */
+        /* ─── NAV ─── */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: rgba(26, 107, 42, 0.95);
-            backdrop-filter: blur(10px);
+            z-index: 200;
+            background: var(--forest);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.75rem 2rem;
+            padding: 0 2rem;
+            height: 58px;
         }
-        nav .logo-nav {
+        .nav-brand {
             font-family: 'Playfair Display', serif;
+            color: var(--gold-light);
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--yellow);
-            font-size: 1.1rem;
             text-decoration: none;
+            letter-spacing: 0.02em;
         }
         nav ul {
             list-style: none;
             display: flex;
             gap: 2rem;
         }
-        nav ul a {
-            color: rgba(255,255,255,0.9);
+        nav a {
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
             transition: color 0.2s;
         }
-        nav ul a:hover { color: var(--yellow); }
+        nav a:hover { color: var(--gold-light); }
 
-        /* ── HERO ── */
+        /* ─── HERO ─── */
         .hero {
             min-height: 100vh;
-            background: linear-gradient(160deg, var(--green-dark) 0%, #0f4a1a 50%, #1a3a0f 100%);
+            background:
+                linear-gradient(180deg, rgba(28,52,30,0.82) 0%, rgba(44,85,48,0.72) 60%, rgba(28,52,30,0.9) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><circle cx="30" cy="30" r="1.5" fill="%23ffffff08"/></svg>');
+            background-color: var(--forest);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 6rem 2rem 4rem;
+            padding: 6rem 2rem 5rem;
+        }
+
+        /* Logo lockup */
+        .hero-emblem {
             position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 60%, rgba(245,197,24,0.08) 0%, transparent 70%);
-        }
-        .hero-logo {
-            width: min(280px, 60vw);
-            height: auto;
-            border-radius: 50%;
-            border: 4px solid var(--yellow);
-            box-shadow: 0 0 60px rgba(245,197,24,0.3), 0 20px 60px rgba(0,0,0,0.4);
-            margin-bottom: 2rem;
-            animation: floatIn 0.8s ease-out;
-            object-fit: cover;
-        }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 900;
-            color: var(--white);
-            line-height: 1.15;
-            margin-bottom: 1rem;
-            animation: floatIn 0.8s ease-out 0.1s both;
-        }
-        .hero h1 span { color: var(--yellow); }
-        .hero p.tagline {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: rgba(255,255,255,0.75);
             margin-bottom: 2.5rem;
-            animation: floatIn 0.8s ease-out 0.2s both;
         }
-        .hero-badges {
+        .emblem-ring {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            padding: 10px;
+            background: rgba(255,255,255,0.07);
             display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-            animation: floatIn 0.8s ease-out 0.3s both;
+            box-shadow:
+                0 0 0 1px rgba(200,136,42,0.3),
+                0 0 40px rgba(200,136,42,0.2),
+                0 20px 60px rgba(0,0,0,0.5);
+            animation: appear 0.9s ease-out both;
         }
-        .badge {
-            background: rgba(245,197,24,0.15);
-            border: 1px solid rgba(245,197,24,0.4);
-            color: var(--yellow);
-            padding: 0.4rem 1rem;
-            border-radius: 99px;
-            font-size: 0.85rem;
-            font-weight: 500;
+        .emblem-ring img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
         }
-        .scroll-hint {
+        .emblem-laurel {
             position: absolute;
-            bottom: 2rem;
+            bottom: -16px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.4);
-            font-size: 0.8rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.4rem;
-            animation: bounce 2s infinite;
-        }
-        .scroll-hint svg { width: 20px; height: 20px; }
-
-        @keyframes floatIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(6px); }
-        }
-
-        /* ── SECTIONS ── */
-        section {
-            padding: 5rem 2rem;
-        }
-        .section-label {
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: 600;
+            background: var(--gold);
+            color: var(--forest);
+            font-size: 0.7rem;
+            font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--green-mid);
-            margin-bottom: 0.75rem;
+            padding: 0.25rem 0.85rem;
+            border-radius: 99px;
+            white-space: nowrap;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 7vw, 4.5rem);
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 0.8rem;
+            animation: appear 0.9s ease-out 0.15s both;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+        .hero .subtitle {
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            color: rgba(255,255,255,0.65);
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            margin-bottom: 3rem;
+            animation: appear 0.9s ease-out 0.25s both;
+        }
+        .hero-pills {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: appear 0.9s ease-out 0.35s both;
+        }
+        .pill {
+            border: 1px solid rgba(200,136,42,0.45);
+            color: rgba(255,255,255,0.75);
+            background: rgba(200,136,42,0.1);
+            padding: 0.35rem 0.9rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+        .hero-arrow {
+            position: absolute;
+            bottom: 2.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.3);
+            animation: bob 2.2s ease-in-out infinite;
+        }
+        .hero-arrow svg { width: 26px; height: 26px; }
+
+        @keyframes appear {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bob {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50%       { transform: translateX(-50%) translateY(7px); }
+        }
+
+        /* ─── ORNAMENT DIVIDER ─── */
+        .ornament {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .ornament::before, .ornament::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .ornament-leaf {
+            color: var(--gold);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* ─── SECTION COMMON ─── */
+        section { padding: 5rem 2rem; }
+        .container { max-width: 1080px; margin: 0 auto; }
+        .eyebrow {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
         }
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 700;
             text-align: center;
-            color: var(--text);
-            margin-bottom: 1rem;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
         }
-        .section-sub {
+        .section-lead {
             text-align: center;
-            color: var(--gray);
-            max-width: 500px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
-        }
-        .container { max-width: 1100px; margin: 0 auto; }
-
-        /* ── DIVIDER ── */
-        .divider {
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--yellow), transparent);
-            border: none;
-            margin: 0;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin: 0 auto 3.5rem;
+            line-height: 1.7;
+            font-size: 0.975rem;
         }
 
-        /* ── EVENTS ── */
-        #events { background: var(--gray-light); }
+        /* ─── EVENTS ─── */
+        #events { background: var(--cream-dark); }
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            gap: 1.25rem;
         }
         .event-card {
             background: var(--white);
-            border-radius: 16px;
-            padding: 2rem 1.75rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            border: 1px solid rgba(0,0,0,0.06);
-            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-            cursor: default;
+            border-radius: 12px;
+            padding: 1.75rem 1.6rem 1.5rem;
+            border: 1px solid rgba(200,136,42,0.15);
+            box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s;
+            position: relative;
+            overflow: hidden;
+        }
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--gold-light), var(--forest-light));
+            opacity: 0;
+            transition: opacity 0.22s;
         }
         .event-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(26,107,42,0.15);
-            border-color: var(--green-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(44,85,48,0.12);
+            border-color: rgba(200,136,42,0.4);
         }
+        .event-card:hover::before { opacity: 1; }
         .event-icon {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
+            font-size: 2.2rem;
             display: block;
+            margin-bottom: 0.9rem;
         }
         .event-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--green-dark);
+            font-size: 1.2rem;
+            color: var(--forest);
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
         .event-card p {
-            font-size: 0.9rem;
-            color: var(--gray);
-            line-height: 1.6;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.65;
         }
-        .event-tag {
-            display: inline-block;
-            margin-top: 1rem;
-            background: rgba(26,107,42,0.08);
-            color: var(--green-dark);
-            font-size: 0.78rem;
-            font-weight: 600;
-            padding: 0.25rem 0.7rem;
-            border-radius: 99px;
+        .event-season {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 1.1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--gold);
         }
 
-        /* ── INSTAGRAM ── */
+        /* ─── INSTAGRAM ─── */
         #instagram {
-            background: linear-gradient(135deg, var(--green-dark), #0f4a1a);
+            background: var(--forest);
             text-align: center;
-            padding: 5rem 2rem;
         }
-        #instagram .section-label { color: rgba(245,197,24,0.8); }
+        #instagram .eyebrow { color: var(--gold-light); opacity: 0.75; }
         #instagram .section-title { color: var(--white); }
-        #instagram .section-sub { color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; }
+        #instagram .section-lead { color: rgba(255,255,255,0.6); }
+
+        .ig-card {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(200,136,42,0.25);
+            border-radius: 20px;
+            padding: 2.5rem 3.5rem;
+            max-width: 420px;
+        }
+        .ig-icon-wrap {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+        }
+        .ig-icon-wrap svg { width: 38px; height: 38px; fill: white; }
+        .ig-handle-big {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: 700;
+        }
+        .ig-handle-big span { color: var(--gold-light); }
         .ig-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
-            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: var(--white);
+            gap: 0.5rem;
+            background: var(--gold);
+            color: var(--forest);
             text-decoration: none;
-            padding: 0.9rem 2rem;
+            padding: 0.75rem 1.75rem;
             border-radius: 99px;
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .ig-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 28px rgba(0,0,0,0.4);
-        }
-        .ig-btn svg { width: 22px; height: 22px; fill: white; }
-        .ig-handle {
-            display: block;
-            margin-top: 1.2rem;
-            color: rgba(255,255,255,0.5);
+            font-weight: 700;
             font-size: 0.9rem;
+            letter-spacing: 0.04em;
+            transition: background 0.2s, transform 0.2s;
         }
+        .ig-btn:hover { background: var(--gold-light); transform: scale(1.04); }
 
-        /* ── FOOTER ── */
+        /* ─── FOOTER ─── */
         footer {
-            background: #0f1f12;
-            color: rgba(255,255,255,0.5);
-            text-align: center;
+            background: #111e12;
             padding: 2rem;
-            font-size: 0.85rem;
+            text-align: center;
         }
-        footer span { color: var(--yellow); }
+        footer p {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.35);
+        }
+        footer span { color: var(--gold); opacity: 0.8; }
 
-        /* ── MOBILE ── */
-        @media (max-width: 640px) {
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
             nav ul { display: none; }
             .events-grid { grid-template-columns: 1fr; }
+            .ig-card { padding: 2rem 1.5rem; }
+            .hero { position: relative; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAV -->
-    <nav>
-        <a href="#" class="logo-nav">🎡 Kerweborsch</a>
-        <ul>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#instagram">Instagram</a></li>
-        </ul>
-    </nav>
+<!-- NAV -->
+<nav>
+    <a href="#" class="nav-brand">🎡 Kindenheimer Kerweborsch</a>
+    <ul>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+    </ul>
+</nav>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
-        <img src="logo.jpg" alt="Kindenheimer Kerweborsch Logo" class="hero-logo">
-        <h1>Kindenheimer<br><span>Kerweborsch</span></h1>
-        <p class="tagline">Dein Verein aus Kindenheim, Pfalz 🍷</p>
-        <div class="hero-badges">
-            <span class="badge">🎡 Tradition seit Jahren</span>
-            <span class="badge">🏡 Kindenheim</span>
-            <span class="badge">🍺 Pälzer Lebensart</span>
+<!-- HERO -->
+<section class="hero" style="position:relative;">
+    <div class="hero-emblem">
+        <div class="emblem-ring">
+            <img src="logo.jpg" alt="Kindenheimer Kerweborsch Logo">
         </div>
-        <div class="scroll-hint">
-            <span>Scroll</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </div>
-    </section>
+        <span class="emblem-laurel">Kindenheim · Pfalz</span>
+    </div>
 
-    <hr class="divider">
+    <h1>Kindenheimer<br><em>Kerweborsch</em></h1>
+    <p class="subtitle">Tradition &amp; Gemeinschaft seit Generationen</p>
 
-    <!-- EVENTS -->
-    <section id="events">
-        <div class="container">
-            <p class="section-label">Was wir machen</p>
-            <h2 class="section-title">Unsere Events</h2>
-            <p class="section-sub">Das ganze Jahr über feiern wir mit euch die schönsten Momente — pälzerisch, gemütlich und mit viel Herzblut.</p>
-            <div class="events-grid">
+    <div class="hero-pills">
+        <span class="pill">🎡 Kerwe</span>
+        <span class="pill">🍷 Wein &amp; Wandern</span>
+        <span class="pill">🏡 Vereinsleben</span>
+    </div>
 
-                <div class="event-card">
-                    <span class="event-icon">🍷</span>
-                    <h3>Wein per Pedes</h3>
-                    <p>Eine genussvolle Wanderung durch die Weinberge der Pfalz — mit Rast, gutem Tropfen und bester Gesellschaft.</p>
-                    <span class="event-tag">Frühjahr</span>
-                </div>
+    <div class="hero-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+    </div>
+</section>
 
-                <div class="event-card">
-                    <span class="event-icon">🎖️</span>
-                    <h3>Vatertag</h3>
-                    <p>Der Feiertag der Väter — bei uns wird er groß begangen: mit Bollerwagen, guter Stimmung und dem nötigen Flüssigen.</p>
-                    <span class="event-tag">Christi Himmelfahrt</span>
-                </div>
+<!-- ORNAMENT -->
+<div style="padding: 2.5rem 2rem; background: var(--cream);">
+    <div class="ornament"><span class="ornament-leaf">✦</span></div>
+</div>
 
-                <div class="event-card">
-                    <span class="event-icon">🥧</span>
-                    <h3>Käskuchenwanderung</h3>
-                    <p>Eine Wanderung mit dem besonderen Extra: pfälzischer Käsekuchen an jeder Rast — hausgemacht, wie es sich gehört.</p>
-                    <span class="event-tag">Sommer</span>
-                </div>
+<!-- EVENTS -->
+<section id="events">
+    <div class="container">
+        <p class="eyebrow">Was wir veranstalten</p>
+        <h2 class="section-title">Unsere Events</h2>
+        <p class="section-lead">Das ganze Jahr feiern wir zusammen — pfälzisch, gemütlich und mit Herzblut dabei.</p>
 
-                <div class="event-card">
-                    <span class="event-icon">🎡</span>
-                    <h3>Kerwe</h3>
-                    <p>Unser Jahreshöhepunkt! Die traditionelle Kirweih in Kindenheim — Musik, Tanz, Festzelt und die ganze Dorfgemeinschaft.</p>
-                    <span class="event-tag">Herbst</span>
-                </div>
-
-                <div class="event-card">
-                    <span class="event-icon">🌸</span>
-                    <h3>1. Mai</h3>
-                    <p>Maifeiertag auf pfälzisch — wir begrüßen den Wonnemonat mit Feier, Musik und dem typischen Frühlingsgefühl.</p>
-                    <span class="event-tag">1. Mai</span>
-                </div>
-
-                <div class="event-card">
-                    <span class="event-icon">🎪</span>
-                    <h3>Kerweborsch meets X</h3>
-                    <p>Unser Sonder-Event des Jahres — jedes Mal eine Überraschung. Schau einfach auf Instagram vorbei, was uns diesmal einfällt.</p>
-                    <span class="event-tag">Wechselnd</span>
-                </div>
-
+        <div class="events-grid">
+            <div class="event-card">
+                <span class="event-icon">🍷</span>
+                <h3>Wein per Pedes</h3>
+                <p>Eine gemütliche Wanderung durch die Weinberge der Pfalz — mit Weinrast, frischer Luft und guter Gesellschaft.</p>
+                <span class="event-season">🌿 Frühjahr</span>
+            </div>
+            <div class="event-card">
+                <span class="event-icon">🎖️</span>
+                <h3>Vatertag</h3>
+                <p>Christi Himmelfahrt bei uns: Bollerwagen, beste Laune und ein langer Tag mit den Kerweborsch-Jungs.</p>
+                <span class="event-season">☀️ Frühsommer</span>
+            </div>
+            <div class="event-card">
+                <span class="event-icon">🥧</span>
+                <h3>Käskuchenwanderung</h3>
+                <p>Wandern mit dem Extra: hausgemachter Käsekuchen an jeder Rast — pfälzischer Genuss at its best.</p>
+                <span class="event-season">🌻 Sommer</span>
+            </div>
+            <div class="event-card">
+                <span class="event-icon">🎡</span>
+                <h3>Kerwe</h3>
+                <p>Unser Jahreshöhepunkt! Die traditionelle Kirweih in Kindenheim mit Festzelt, Musik, Tanz und dem ganzen Dorf.</p>
+                <span class="event-season">🍂 Herbst</span>
+            </div>
+            <div class="event-card">
+                <span class="event-icon">🌸</span>
+                <h3>1. Mai</h3>
+                <p>Maifeiertag pfälzisch — der Wonnemonat wird bei uns gebührend begrüßt, mit Feier und guter Stimmung.</p>
+                <span class="event-season">🌸 Mai</span>
+            </div>
+            <div class="event-card">
+                <span class="event-icon">🎪</span>
+                <h3>Kerweborsch meets X</h3>
+                <p>Unser Sonder-Event — jedes Jahr eine andere Überraschung. Was es diesmal gibt? Schau auf Instagram!</p>
+                <span class="event-season">📅 Wechselnd</span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <hr class="divider">
+<!-- ORNAMENT -->
+<div style="padding: 2.5rem 2rem; background: var(--cream-dark);">
+    <div class="ornament"><span class="ornament-leaf">✦</span></div>
+</div>
 
-    <!-- INSTAGRAM -->
-    <section id="instagram">
-        <p class="section-label">Social Media</p>
-        <h2 class="section-title">Bleib auf dem Laufenden</h2>
-        <p class="section-sub">Fotos, Storys und Neuigkeiten direkt von uns — folg uns auf Instagram und verpass nix!</p>
-        <a href="https://www.instagram.com/kinneremer_kerweborsch/" target="_blank" rel="noopener" class="ig-btn">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-            </svg>
-            Auf Instagram folgen
-        </a>
-        <span class="ig-handle">@kinneremer_kerweborsch</span>
-    </section>
+<!-- INSTAGRAM -->
+<section id="instagram">
+    <p class="eyebrow">Social Media</p>
+    <h2 class="section-title">Folg uns auf Instagram</h2>
+    <p class="section-lead">Aktuelle Fotos, Stories und Neuigkeiten direkt von uns — verpass nix mehr!</p>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>© 2025 <span>Kindenheimer Kerweborsch</span> · Kindenheim, Pfalz · Mit ❤️ gebaut</p>
-    </footer>
+    <div style="display:flex; justify-content:center;">
+        <div class="ig-card">
+            <div class="ig-icon-wrap">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+            </div>
+            <p class="ig-handle-big"><span>@</span>kinneremer_kerweborsch</p>
+            <a href="https://www.instagram.com/kinneremer_kerweborsch/" target="_blank" rel="noopener" class="ig-btn">
+                Jetzt folgen →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2025 <span>Kindenheimer Kerweborsch</span> · Kindenheim, Pfalz · Mit ❤️ gebaut</p>
+</footer>
 
 </body>
 </html>
