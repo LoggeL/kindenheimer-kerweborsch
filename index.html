@@ -73,10 +73,7 @@
         /* ─── HERO ─── */
         .hero {
             min-height: 100vh;
-            background:
-                linear-gradient(180deg, rgba(28,52,30,0.82) 0%, rgba(44,85,48,0.72) 60%, rgba(28,52,30,0.9) 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><circle cx="30" cy="30" r="1.5" fill="%23ffffff08"/></svg>');
-            background-color: var(--forest);
+            background: var(--cream);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -94,9 +91,6 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            border: 3px solid var(--gold);
-            padding: 10px;
-            background: rgba(255,255,255,0.07);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,18 +127,18 @@
             font-family: 'Playfair Display', serif;
             font-size: clamp(3.2rem, 11vw, 7rem);
             font-weight: 900;
-            color: var(--white);
+            color: var(--forest);
             line-height: 1.1;
             margin-bottom: 0.8rem;
             animation: appear 0.9s ease-out 0.15s both;
         }
         .hero h1 em {
             font-style: italic;
-            color: var(--white);
+            color: var(--forest-mid);
         }
         .hero .subtitle {
             font-size: clamp(0.95rem, 2vw, 1.15rem);
-            color: rgba(255,255,255,0.65);
+            color: var(--text-muted);
             font-weight: 300;
             letter-spacing: 0.04em;
             margin-bottom: 3rem;
@@ -158,9 +152,9 @@
             animation: appear 0.9s ease-out 0.35s both;
         }
         .pill {
-            border: 1px solid rgba(200,136,42,0.45);
-            color: rgba(255,255,255,0.75);
-            background: rgba(200,136,42,0.1);
+            border: 1px solid rgba(184,121,42,0.4);
+            color: var(--forest);
+            background: var(--gold-pale);
             padding: 0.35rem 0.9rem;
             border-radius: 99px;
             font-size: 0.8rem;
@@ -171,7 +165,7 @@
             bottom: 2.2rem;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.3);
+            color: rgba(61,107,74,0.3);
             animation: bob 2.2s ease-in-out infinite;
         }
         .hero-arrow svg { width: 26px; height: 26px; }
@@ -387,10 +381,7 @@
 <!-- HERO -->
 <section class="hero" style="position:relative;">
     <div class="hero-emblem">
-        <div class="emblem-ring">
-            <img src="logo.jpg" alt="Kindenheimer Kerweborsch Logo">
-        </div>
-        <span class="emblem-laurel">Kindenheim · Pfalz</span>
+        <img src="logo.png" alt="Kindenheimer Kerweborsch Logo" style="width:280px;max-width:75vw;height:auto;display:block;margin:0 auto;">
     </div>
 
     <h1>Kindenheimer<br><em>Kerweborsch</em></h1>
