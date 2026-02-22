@@ -1,91 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 340">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360">
   <defs>
-    <!-- Oberer Bogen für "Kinneremer" -->
-    <path id="topArc" d="M 28,165 A 122,122 0 0,1 272,165"/>
-    <!-- Unterer Bogen für "Kerweborsch" -->
-    <path id="botArc" d="M 48,202 A 108,108 0 0,0 252,202"/>
+    <!-- Oberer Bogen: eng über der Figur -->
+    <path id="topArc" d="M 22,158 A 128,128 0 0,1 278,158"/>
+    <!-- Unterer Bogen: weit unter den Füßen -->
+    <path id="botArc" d="M 38,232 A 128,128 0 0,0 262,232"/>
   </defs>
 
-  <!-- Bogentext oben -->
-  <text font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="bold"
-        fill="#3d6b4a" letter-spacing="4">
+  <!-- Bogentext oben: KINNEREMER -->
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="23" font-weight="bold"
+        fill="#3d6b4a" letter-spacing="5">
     <textPath href="#topArc" startOffset="50%" text-anchor="middle">Kinneremer</textPath>
   </text>
 
-  <!-- Bogentext unten -->
-  <text font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="bold"
+  <!-- Bogentext unten: KERWEBORSCH -->
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="23" font-weight="bold"
         fill="#3d6b4a" letter-spacing="2">
     <textPath href="#botArc" startOffset="50%" text-anchor="middle">Kerweborsch</textPath>
   </text>
 
-  <!-- ===== FIGUR ===== -->
+  <!-- ===== FIGUR (y-Koordinaten: Kopf ~100, Füße ~225) ===== -->
 
-  <!-- Zylinder Krone -->
-  <rect x="124" y="50" width="52" height="41" rx="4" fill="#3d6b4a"/>
+  <!-- Zylinder: Krone -->
+  <rect x="124" y="35" width="52" height="38" rx="4" fill="#3d6b4a"/>
   <!-- Hutband -->
-  <rect x="124" y="82" width="52" height="8" rx="1" fill="#2d4a38"/>
+  <rect x="124" y="65" width="52" height="7" rx="1" fill="#2d4a38"/>
   <!-- Krempe -->
-  <rect x="106" y="89" width="88" height="10" rx="5" fill="#3d6b4a"/>
+  <rect x="104" y="71" width="92" height="10" rx="5" fill="#3d6b4a"/>
 
   <!-- Rechter Arm hochgestreckt (Hut tippen) -->
-  <path d="M 183,150 C 200,132 205,115 196,92"
+  <path d="M 183,135 C 202,115 207,96 196,74"
         stroke="#3d6b4a" stroke-width="11" stroke-linecap="round" fill="none"/>
   <!-- Hand am Hut -->
-  <ellipse cx="193" cy="90" rx="9" ry="7" fill="#3d6b4a"/>
+  <ellipse cx="193" cy="73" rx="9" ry="7" fill="#3d6b4a"/>
 
   <!-- Kopf -->
-  <circle cx="150" cy="122" r="21" fill="#3d6b4a"/>
+  <circle cx="150" cy="105" r="21" fill="#3d6b4a"/>
 
   <!-- Brille links -->
-  <circle cx="142" cy="121" r="6.5" fill="none" stroke="#faf7f2" stroke-width="2"/>
+  <circle cx="142" cy="104" r="6.5" fill="none" stroke="#faf7f2" stroke-width="2.2"/>
   <!-- Brille rechts -->
-  <circle cx="158" cy="121" r="6.5" fill="none" stroke="#faf7f2" stroke-width="2"/>
+  <circle cx="158" cy="104" r="6.5" fill="none" stroke="#faf7f2" stroke-width="2.2"/>
   <!-- Brille Steg -->
-  <line x1="148.5" y1="121" x2="151.5" y2="121" stroke="#faf7f2" stroke-width="2"/>
+  <line x1="148.5" y1="104" x2="151.5" y2="104" stroke="#faf7f2" stroke-width="2"/>
   <!-- Lächeln -->
-  <path d="M 144,130 Q 150,136 156,130" stroke="#faf7f2" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 143,114 Q 150,120 157,114" stroke="#faf7f2" stroke-width="2" fill="none" stroke-linecap="round"/>
 
   <!-- Hals -->
-  <rect x="146" y="142" width="8" height="11" fill="#3d6b4a"/>
+  <rect x="146" y="125" width="8" height="10" fill="#3d6b4a"/>
 
   <!-- Fliege (gold) -->
-  <polygon points="146,151 150,155 146,159" fill="#b8792a"/>
-  <polygon points="154,151 150,155 154,159" fill="#b8792a"/>
-  <circle cx="150" cy="155" r="2.5" fill="#9a6020"/>
+  <polygon points="146,133 150,137 146,141" fill="#b8792a"/>
+  <polygon points="154,133 150,137 154,141" fill="#b8792a"/>
+  <circle cx="150" cy="137" r="2.5" fill="#9a6020"/>
 
   <!-- Jacke links (mit Schoss) -->
-  <path d="M 150,153 L 116,155 L 106,215 L 124,215 L 118,258 L 135,258 L 150,215 Z"
+  <path d="M 150,135 L 116,138 L 108,195 L 126,195 L 120,235 L 136,235 L 150,195 Z"
         fill="#3d6b4a"/>
   <!-- Jacke rechts (mit Schoss) -->
-  <path d="M 150,153 L 184,155 L 194,215 L 176,215 L 182,258 L 165,258 L 150,215 Z"
+  <path d="M 150,135 L 184,138 L 192,195 L 174,195 L 180,235 L 164,235 L 150,195 Z"
         fill="#3d6b4a"/>
   <!-- Weißes Hemd vorne -->
-  <path d="M 147,157 L 153,157 L 152,212 L 148,212 Z" fill="#faf7f2"/>
+  <path d="M 147,139 L 153,139 L 152,192 L 148,192 Z" fill="#faf7f2"/>
   <!-- Hemdsknöpfe -->
-  <circle cx="150" cy="170" r="2" fill="#d0c8b8"/>
-  <circle cx="150" cy="183" r="2" fill="#d0c8b8"/>
-  <circle cx="150" cy="196" r="2" fill="#d0c8b8"/>
+  <circle cx="150" cy="152" r="2" fill="#c8bfaa"/>
+  <circle cx="150" cy="165" r="2" fill="#c8bfaa"/>
+  <circle cx="150" cy="178" r="2" fill="#c8bfaa"/>
   <!-- Linkes Revers -->
-  <path d="M 147,153 L 126,155 L 141,178 Z" fill="#4a7c59"/>
+  <path d="M 147,135 L 126,138 L 141,160 Z" fill="#4a7c59"/>
   <!-- Rechtes Revers -->
-  <path d="M 153,153 L 174,155 L 159,178 Z" fill="#4a7c59"/>
+  <path d="M 153,135 L 174,138 L 159,160 Z" fill="#4a7c59"/>
 
-  <!-- Linker Arm ausgestreckt (nach links/vorne) -->
-  <path d="M 112,165 C 90,168 76,175 62,182"
+  <!-- Linker Arm ausgestreckt -->
+  <path d="M 112,148 C 90,152 75,158 60,166"
         stroke="#3d6b4a" stroke-width="11" stroke-linecap="round" fill="none"/>
-  <!-- Linke Handschuh-Hand mit Fingern -->
-  <ellipse cx="57" cy="183" rx="11" ry="9" fill="#3d6b4a"/>
-  <line x1="49" y1="179" x2="44" y2="174" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="53" y1="175" x2="49" y2="170" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="58" y1="174" x2="56" y2="168" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="63" y1="175" x2="63" y2="169" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
+  <!-- Linke Hand mit Fingern -->
+  <ellipse cx="55" cy="168" rx="11" ry="9" fill="#3d6b4a"/>
+  <line x1="47" y1="163" x2="42" y2="157" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="51" y1="159" x2="47" y2="153" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="57" y1="157" x2="55" y2="151" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="63" y1="158" x2="63" y2="152" stroke="#3d6b4a" stroke-width="5" stroke-linecap="round"/>
 
   <!-- Hose links -->
-  <path d="M 130,255 L 145,255 L 141,298 L 126,298 Z" fill="#2d4a38"/>
+  <path d="M 130,232 L 144,232 L 140,272 L 126,272 Z" fill="#2d4a38"/>
   <!-- Hose rechts -->
-  <path d="M 155,255 L 170,255 L 174,298 L 159,298 Z" fill="#2d4a38"/>
+  <path d="M 156,232 L 170,232 L 174,272 L 160,272 Z" fill="#2d4a38"/>
 
   <!-- Schuhe -->
-  <ellipse cx="132" cy="300" rx="15" ry="6" fill="#1a2e1d"/>
-  <ellipse cx="168" cy="300" rx="15" ry="6" fill="#1a2e1d"/>
+  <ellipse cx="132" cy="274" rx="15" ry="6" fill="#1a2e1d"/>
+  <ellipse cx="168" cy="274" rx="15" ry="6" fill="#1a2e1d"/>
 </svg>

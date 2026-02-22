@@ -14,7 +14,7 @@
         --cream: #faf7f2; --cream-dark: #f0ebe0;
         --forest: #3d6b4a; --forest-mid: #5a8a68; --forest-light: #7aaa88;
         --gold: #b8792a; --gold-light: #c99040; --gold-pale: #f5e6c8;
-        --text: #1c1c1c; --text-muted: #6b6b6b; --white: #ffffff;
+        --text: #1c1c1c; --text-muted: #484848; --white: #ffffff;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text); }
@@ -25,15 +25,15 @@
     .hero-sub { min-height: 38vh; background: var(--forest); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 7rem 2rem 4rem; }
     .hero-sub .icon { font-size: 4rem; margin-bottom: 1rem; }
     .hero-sub h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 7vw, 3.5rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 0.75rem; }
-    .hero-sub p { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 480px; line-height: 1.7; }
+    .hero-sub p { color: rgba(255,255,255,0.92); font-size: 1rem; max-width: 480px; line-height: 1.7; }
     .content { max-width: 800px; margin: 0 auto; padding: 3.5rem 2rem 4rem; }
     .content h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--forest); margin: 2rem 0 0.75rem; }
     .content p { font-size: 0.975rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.2rem; }
     .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0 2rem; }
     .info-card { background: var(--white); border-radius: 10px; padding: 1.25rem 1.5rem; border-left: 4px solid var(--gold); box-shadow: 0 1px 6px rgba(0,0,0,0.05); }
-    .info-card .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+    .info-card .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7a4f10; margin-bottom: 0.3rem; }
     .info-card .value { font-size: 1rem; font-weight: 700; color: var(--forest); }
-    .info-card .sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .info-card .sub { font-size: 0.82rem; color: #555; margin-top: 0.2rem; }
     .highlight-box { background: var(--gold-pale); border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
     .highlight-box p { margin: 0; color: var(--text); font-weight: 500; font-size: 0.95rem; }
     .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
@@ -41,7 +41,7 @@
     .day-card { background: var(--white); border-radius: 12px; padding: 1.75rem; margin-bottom: 1.25rem; border: 1px solid rgba(61,107,74,0.15); box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
     .day-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--forest); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
     .day-card .date-hint { font-size: 0.8rem; color: var(--gold); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-    .day-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+    .day-card p { font-size: 0.9rem; color: #484848; line-height: 1.65; }
     .placeholder { border: 2px dashed rgba(61,107,74,0.25); border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: 0.75rem; }
     .map-placeholder { width: 100%; height: 200px; background: var(--cream-dark); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: var(--text-muted); margin: 1.5rem 0; border: 1px solid rgba(61,107,74,0.1); }
     .ig-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--forest); color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; font-size: 0.9rem; margin-top: 1.5rem; transition: background 0.2s; }
