@@ -368,6 +368,52 @@
             .ig-card { padding: 2rem 1.5rem; }
             .hero { position: relative; }
         }
+
+        /* ── COUNTDOWN ── */
+        #countdown { background: var(--forest); text-align: center; padding: 3rem 2rem; }
+        .countdown-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem; }
+        .countdown-event { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 2rem); color: var(--white); margin-bottom: 1.5rem; }
+        .countdown-tiles { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .c-tile { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 1rem 1.5rem; min-width: 80px; }
+        .c-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--white); line-height: 1; }
+        .c-unit { font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; }
+
+        /* ── GALERIE ── */
+        #galerie { background: var(--cream); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+        .gallery-item { aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; background: var(--cream-dark); display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(61,107,74,0.2); flex-direction: column; gap: 0.5rem; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: border-color 0.2s; }
+        .gallery-item:hover { border-color: var(--forest-mid); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+        .gallery-placeholder { font-size: 2rem; }
+        .gallery-add { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; background: var(--forest); color: white; padding: 0.7rem 1.4rem; border-radius: 99px; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+        .gallery-add:hover { background: var(--forest-mid); }
+
+        /* ── HISTORIE ── */
+        #historie { background: var(--cream-dark); }
+        .timeline { position: relative; max-width: 700px; margin: 2.5rem auto 0; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--forest), var(--gold)); border-radius: 99px; }
+        .tl-item { position: relative; margin-bottom: 2.5rem; }
+        .tl-item::before { content: ''; position: absolute; left: -2.45rem; top: 0.3rem; width: 14px; height: 14px; border-radius: 50%; background: var(--gold); border: 3px solid var(--cream-dark); }
+        .tl-year { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--forest); margin-bottom: 0.3rem; }
+        .tl-text { font-size: 0.95rem; color: #484848; line-height: 1.7; }
+        .tl-placeholder { font-style: italic; color: var(--text-muted); border: 2px dashed rgba(61,107,74,0.2); border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.88rem; }
+
+        /* ── MITMACHEN ── */
+        #mitmachen { background: var(--forest); text-align: center; }
+        .mitmachen-box { max-width: 600px; margin: 0 auto; }
+        #mitmachen .eyebrow { color: var(--gold-light); opacity: 0.8; }
+        #mitmachen h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--white); margin-bottom: 1rem; }
+        #mitmachen p { color: rgba(255,255,255,0.8); line-height: 1.75; margin-bottom: 2rem; font-size: 0.975rem; }
+        .mitmachen-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--forest); padding: 0.85rem 1.75rem; border-radius: 99px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+        .btn-primary:hover { background: var(--gold-light); transform: scale(1.03); }
+        .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid rgba(255,255,255,0.4); color: var(--white); padding: 0.85rem 1.75rem; border-radius: 99px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: border-color 0.2s; }
+        .btn-outline:hover { border-color: var(--white); }
+        .perks { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 2.5rem 0; text-align: left; }
+        .perk { background: rgba(255,255,255,0.07); border-radius: 10px; padding: 1.1rem 1.25rem; }
+        .perk-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .perk h4 { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+        .perk p { font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.5; margin: 0; }
     </style>
 </head>
 <body>
@@ -377,6 +423,9 @@
     <a href="#" class="nav-brand">🎡 Kindenheimer Kerweborsch</a>
     <ul>
         <li><a href="#events">Events</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#historie">Historie</a></li>
+        <li><a href="#mitmachen">Mitmachen</a></li>
         <li><a href="#instagram">Instagram</a></li>
     </ul>
 </nav>
@@ -471,6 +520,123 @@
 <!-- ORNAMENT -->
 <div style="padding: 2.5rem 2rem; background: var(--cream-dark);">
     <div class="ornament"><span class="ornament-leaf">✦</span></div>
+</div>
+
+
+<!-- COUNTDOWN -->
+<section id="countdown">
+    <p class="countdown-label">Nächstes Event</p>
+    <p class="countdown-event">🎡 Kinneremer Kerwe — 4. September 2026</p>
+    <div class="countdown-tiles" id="countdown-tiles">
+        <div class="c-tile"><div class="c-num" id="c-days">—</div><div class="c-unit">Tage</div></div>
+        <div class="c-tile"><div class="c-num" id="c-hours">—</div><div class="c-unit">Stunden</div></div>
+        <div class="c-tile"><div class="c-num" id="c-min">—</div><div class="c-unit">Minuten</div></div>
+        <div class="c-tile"><div class="c-num" id="c-sec">—</div><div class="c-unit">Sekunden</div></div>
+    </div>
+</section>
+<script>
+(function() {
+    var target = new Date('2026-09-04T17:00:00');
+    function update() {
+        var diff = target - new Date();
+        if (diff <= 0) { document.getElementById('countdown-tiles').innerHTML = '<p style="color:#c99040;font-size:1.2rem;font-weight:700;">🎉 Die Kerwe hat begonnen!</p>'; return; }
+        var d = Math.floor(diff/86400000), h = Math.floor(diff%86400000/3600000),
+            m = Math.floor(diff%3600000/60000), s = Math.floor(diff%60000/1000);
+        document.getElementById('c-days').textContent = d;
+        document.getElementById('c-hours').textContent = String(h).padStart(2,'0');
+        document.getElementById('c-min').textContent = String(m).padStart(2,'0');
+        document.getElementById('c-sec').textContent = String(s).padStart(2,'0');
+    }
+    update(); setInterval(update, 1000);
+})();
+</script>
+
+<!-- ORNAMENT -->
+<div style="padding:2rem 2rem;background:var(--cream);">
+    <div class="ornament"><span class="ornament-leaf">✦</span></div>
+</div>
+
+<!-- GALERIE -->
+<section id="galerie">
+    <div class="container">
+        <p class="eyebrow">Impressionen</p>
+        <h2 class="section-title">Galerie</h2>
+        <p class="section-lead">Bilder sagen mehr als tausend Worte — hier siehst du, was uns ausmacht.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>Kerwe 2024</span></div>
+            <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>Käskuchenwanderung</span></div>
+            <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>Wein per Pedes</span></div>
+            <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>Vatertag</span></div>
+            <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>1. Mai</span></div>
+            <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>Kerweborsch meets X</span></div>
+        </div>
+        <div style="text-align:center;">
+            <a href="https://www.instagram.com/kinneremer_kerweborsch/" target="_blank" class="gallery-add">
+                📷 Mehr Fotos auf Instagram →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ORNAMENT -->
+<div style="padding:2rem 2rem;background:var(--cream-dark);">
+    <div class="ornament"><span class="ornament-leaf">✦</span></div>
+</div>
+
+<!-- HISTORIE -->
+<section id="historie">
+    <div class="container">
+        <p class="eyebrow">Unsere Geschichte</p>
+        <h2 class="section-title">Historie</h2>
+        <p class="section-lead">Wie alles begann — die Geschichte der Kindenheimer Kerweborsch.</p>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-year">Gründung</div>
+                <div class="tl-placeholder">📝 Infos zur Gründung folgen — wir sind gespannt auf eure Geschichte!</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-year">Erste Events</div>
+                <div class="tl-placeholder">📝 Die ersten Veranstaltungen und Meilensteine — kommt bald!</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-year">Heute</div>
+                <div class="tl-text">Die Kinneremer Kerweborsch organisieren jedes Jahr mehrere Events rund um die Kerwe und das Vereinsleben in Kindenheim. Mit Herzblut, Tradition und einem Augenzwinkern.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ORNAMENT -->
+<div style="padding:2rem 2rem;background:var(--cream-dark);">
+    <div class="ornament"><span class="ornament-leaf">✦</span></div>
+</div>
+
+<!-- MITMACHEN -->
+<section id="mitmachen">
+    <div class="mitmachen-box">
+        <p class="eyebrow">Werde Teil von uns</p>
+        <h2>Du willst dabei sein?</h2>
+        <p>Die Kindenheimer Kerweborsch sind immer offen für neue Gesichter. Ob du aktiv mithelfen, feiern oder einfach dazugehören möchtest — bei uns bist du willkommen!</p>
+        <div class="perks">
+            <div class="perk"><div class="perk-icon">🎡</div><h4>Echte Events</h4><p>Du bist mittendrin statt nur dabei.</p></div>
+            <div class="perk"><div class="perk-icon">🤝</div><h4>Gemeinschaft</h4><p>Ein starkes Netz aus Freunden im Dorf.</p></div>
+            <div class="perk"><div class="perk-icon">🍷</div><h4>Pfälzer Lebensart</h4><p>Genuss, Tradition und gute Laune.</p></div>
+            <div class="perk"><div class="perk-icon">🌟</div><h4>Mitgestalten</h4><p>Deine Ideen sind gefragt.</p></div>
+        </div>
+        <div class="mitmachen-btns">
+            <a href="https://www.instagram.com/kinneremer_kerweborsch/" target="_blank" class="btn-primary">📱 Auf Instagram schreiben</a>
+            <a href="#events" class="btn-outline">Unsere Events entdecken</a>
+        </div>
+    </div>
+</section>
+
+<!-- ORNAMENT -->
+<div style="padding:2rem 2rem;background:var(--forest);">
+    <div class="ornament" style="max-width:700px;margin:0 auto;">
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)"></div>
+        <span style="color:rgba(255,255,255,0.4);font-size:1.2rem;">✦</span>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)"></div>
+    </div>
 </div>
 
 <!-- INSTAGRAM -->
