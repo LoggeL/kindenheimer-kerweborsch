@@ -266,6 +266,8 @@
             border-color: rgba(200,136,42,0.4);
         }
         .event-card:hover::before { opacity: 1; }
+        .event-card-cover { margin: -1.75rem -1.6rem 1.25rem; overflow: hidden; border-radius: 12px 12px 0 0; height: 140px; }
+        .event-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .event-icon {
             font-size: 2.2rem;
             display: block;
@@ -385,8 +387,6 @@
         .gallery-item:hover { border-color: var(--forest-mid); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
         .gallery-placeholder { font-size: 2rem; }
-        .gallery-featured { width: 100%; border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
-        .gallery-featured img { width: 100%; height: auto; display: block; }
         .gallery-add { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; background: var(--forest); color: white; padding: 0.7rem 1.4rem; border-radius: 99px; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
         .gallery-add:hover { background: var(--forest-mid); }
 
@@ -508,8 +508,9 @@
             
             </a>
             <a class="event-card" href="./meets-x/">
-
-                <span class="event-icon">🎪</span>
+                <div class="event-card-cover">
+                    <img src="gallery-banner.jpg" alt="Kerweborsch meets X">
+                </div>
                 <h3>Kerweborsch meets X</h3>
                 <p>Unser Sonder-Event — jedes Jahr eine andere Überraschung. Was es diesmal gibt? Schau auf Instagram!</p>
                 <span class="event-season">📅 Wechselnd</span>
@@ -564,9 +565,6 @@
         <p class="eyebrow">Impressionen</p>
         <h2 class="section-title">Galerie</h2>
         <p class="section-lead">Bilder sagen mehr als tausend Worte — hier siehst du, was uns ausmacht.</p>
-        <div class="gallery-featured">
-            <img src="gallery-banner.jpg" alt="Kinneremer Kerweborsch meets X" loading="lazy">
-        </div>
         <div class="gallery-grid">
             <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>Kerwe 2024</span></div>
             <div class="gallery-item"><div class="gallery-placeholder">📸</div><span>Käskuchenwanderung</span></div>
