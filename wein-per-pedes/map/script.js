@@ -429,103 +429,199 @@
     const isDev = new URLSearchParams(window.location.search).get('dev') === '1';
     if (!isDev) return;
 
-    const savedPoints = [];
-    const savedMarkers = [];
+    let mode = 'route'; // 'route' | 'station' | 'parking'
+    const routePoints = [];
+    const routeMarkers = [];
+    const newStations = [];
+    const newParking = [];
+    const addedMarkers = [];
 
-    // Dev badge
+    // ---- Badge ----
     const badge = document.createElement('div');
-    badge.id = 'dev-badge';
     badge.textContent = '⚙️ DEV';
-    badge.style.cssText = `
-      position:fixed;top:10px;left:50%;transform:translateX(-50%);
+    badge.style.cssText = `position:fixed;top:10px;left:50%;transform:translateX(-50%);
       background:#FF6600;color:#fff;font-size:11px;font-weight:700;
-      padding:4px 10px;border-radius:12px;z-index:9999;
-      pointer-events:none;letter-spacing:1px;`;
+      padding:4px 10px;border-radius:12px;z-index:9999;pointer-events:none;letter-spacing:1px;`;
     document.body.appendChild(badge);
 
-    // Dev bar
+    // ---- Mode bar (top) ----
+    const modeBar = document.createElement('div');
+    modeBar.style.cssText = `position:fixed;top:44px;left:50%;transform:translateX(-50%);
+      display:flex;gap:6px;z-index:9999;`;
+    modeBar.innerHTML = `
+      <button data-mode="route"   style="padding:5px 12px;border-radius:8px;border:2px solid #FF6600;background:#FF6600;color:#fff;font-size:12px;font-weight:700;cursor:pointer">🗺 Route</button>
+      <button data-mode="station" style="padding:5px 12px;border-radius:8px;border:2px solid #555;background:rgba(0,0,0,0.7);color:#aaa;font-size:12px;cursor:pointer">🍷 Stand</button>
+      <button data-mode="parking" style="padding:5px 12px;border-radius:8px;border:2px solid #555;background:rgba(0,0,0,0.7);color:#aaa;font-size:12px;cursor:pointer">🅿 Parkplatz</button>`;
+    document.body.appendChild(modeBar);
+
+    function setMode(m) {
+      mode = m;
+      modeBar.querySelectorAll('button').forEach(b => {
+        const active = b.dataset.mode === m;
+        b.style.background = active ? '#FF6600' : 'rgba(0,0,0,0.7)';
+        b.style.color = active ? '#fff' : '#aaa';
+        b.style.borderColor = active ? '#FF6600' : '#555';
+      });
+      document.getElementById('dev-hint').textContent =
+        m === 'route'   ? 'Klick = Routenpunkt hinzufügen' :
+        m === 'station' ? 'Klick = Neuer Weinstand (Name eingeben)' :
+                          'Klick = Neuer Parkplatz (Name eingeben)';
+    }
+    modeBar.querySelectorAll('button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
+    // ---- Bottom bar ----
     const bar = document.createElement('div');
-    bar.id = 'dev-bar';
-    bar.style.cssText = `
-      position:fixed;bottom:0;left:0;right:0;
-      background:rgba(0,0,0,0.88);color:#FF6600;
-      font-family:monospace;font-size:12px;
-      padding:8px 12px;z-index:9999;
-      display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    bar.style.cssText = `position:fixed;bottom:0;left:0;right:0;
+      background:rgba(0,0,0,0.9);color:#FF6600;font-family:monospace;font-size:12px;
+      padding:8px 12px;z-index:9999;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
       border-top:2px solid #FF6600;`;
     bar.innerHTML = `
-      <span id="dev-cursor" style="color:#aaa;flex:1;min-width:200px">Klick = Punkt speichern</span>
-      <span id="dev-count" style="color:#FF6600">0 Punkte</span>
+      <span id="dev-hint" style="color:#aaa;flex:1;min-width:180px">Klick = Routenpunkt hinzufügen</span>
+      <span id="dev-counts" style="color:#FF6600"></span>
       <button id="dev-undo" style="background:#555;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">↩ Undo</button>
-      <button id="dev-clear" style="background:#900;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">🗑 Reset</button>
-      <button id="dev-copy-last" style="background:#444;border:none;color:#FF6600;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">📋 Letzten</button>
-      <button id="dev-export" style="background:#FF6600;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:11px;font-weight:700">💾 Alle speichern</button>`;
+      <button id="dev-reset" style="background:#900;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">🗑 Alles reset</button>
+      <button id="dev-export" style="background:#FF6600;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:700">💾 stations.js exportieren</button>`;
     document.body.appendChild(bar);
 
-    function updateBar() {
-      document.getElementById('dev-count').textContent = `${savedPoints.length} Punkte`;
+    // ---- Name dialog ----
+    const dialog = document.createElement('div');
+    dialog.id = 'dev-dialog';
+    dialog.style.cssText = `display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      background:#1a1a1a;border:2px solid #FF6600;border-radius:12px;padding:20px 24px;
+      z-index:10000;min-width:280px;color:#fff;font-family:sans-serif;`;
+    dialog.innerHTML = `
+      <p id="dev-dialog-title" style="margin:0 0 12px;font-size:14px;font-weight:700;color:#FF6600"></p>
+      <input id="dev-dialog-name" type="text" placeholder="Name..."
+        style="width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #555;
+        background:#333;color:#fff;font-size:14px;margin-bottom:8px;">
+      <input id="dev-dialog-desc" type="text" placeholder="Beschreibung (optional)"
+        style="width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #555;
+        background:#333;color:#fff;font-size:14px;margin-bottom:14px;">
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button id="dev-dialog-cancel" style="padding:6px 14px;border-radius:6px;border:1px solid #555;background:#333;color:#aaa;cursor:pointer">Abbrechen</button>
+        <button id="dev-dialog-ok"     style="padding:6px 14px;border-radius:6px;border:none;background:#FF6600;color:#fff;font-weight:700;cursor:pointer">Hinzufügen</button>
+      </div>`;
+    document.body.appendChild(dialog);
+
+    let pendingCoord = null;
+    function openDialog(lat, lng, type) {
+      pendingCoord = { lat, lng };
+      document.getElementById('dev-dialog-title').textContent =
+        type === 'station' ? `🍷 Neuer Weinstand` : `🅿 Neuer Parkplatz`;
+      document.getElementById('dev-dialog-name').value = '';
+      document.getElementById('dev-dialog-desc').value = '';
+      dialog.style.display = 'block';
+      setTimeout(() => document.getElementById('dev-dialog-name').focus(), 50);
+    }
+    document.getElementById('dev-dialog-cancel').addEventListener('click', () => {
+      dialog.style.display = 'none'; pendingCoord = null;
+    });
+    document.getElementById('dev-dialog-ok').addEventListener('click', confirmAdd);
+    document.getElementById('dev-dialog-name').addEventListener('keydown', e => { if (e.key === 'Enter') confirmAdd(); });
+
+    function confirmAdd() {
+      const name = document.getElementById('dev-dialog-name').value.trim();
+      const desc = document.getElementById('dev-dialog-desc').value.trim();
+      if (!name || !pendingCoord) return;
+      dialog.style.display = 'none';
+
+      if (mode === 'station') {
+        const id = (stations?.length || 0) + newStations.length + 1;
+        newStations.push({ id, name, lat: pendingCoord.lat, lng: pendingCoord.lng, description: desc });
+        const icon = createStationIcon(id);
+        const m = L.marker([pendingCoord.lat, pendingCoord.lng], { icon }).addTo(state.map)
+          .bindTooltip(`⭐ NEU: ${name}`, { direction: 'top', offset: [0, -45] });
+        addedMarkers.push(m);
+        showToast(`🍷 Stand "${name}" hinzugefügt (ID ${id})`);
+      } else {
+        const id = `P${(parkingSpots?.length || 0) + newParking.length + 1}`;
+        newParking.push({ id, name, lat: pendingCoord.lat, lng: pendingCoord.lng, description: desc });
+        const icon = createParkingIcon(id);
+        const m = L.marker([pendingCoord.lat, pendingCoord.lng], { icon }).addTo(state.map)
+          .bindTooltip(`⭐ NEU: ${name}`, { direction: 'top', offset: [0, -48] });
+        addedMarkers.push(m);
+        showToast(`🅿 Parkplatz "${name}" hinzugefügt (${id})`);
+      }
+      pendingCoord = null;
+      updateCounts();
     }
 
+    function updateCounts() {
+      document.getElementById('dev-counts').textContent =
+        `Route: ${routePoints.length}  |  Stände: ${newStations.length}  |  P: ${newParking.length}`;
+    }
+
+    // ---- Map click ----
     state.map.on('click', e => {
-      const { lat, lng } = e.latlng;
-      const pt = { lat: parseFloat(lat.toFixed(7)), lng: parseFloat(lng.toFixed(7)) };
-      savedPoints.push(pt);
+      if (dialog.style.display === 'block') return;
+      const lat = parseFloat(e.latlng.lat.toFixed(7));
+      const lng = parseFloat(e.latlng.lng.toFixed(7));
 
-      const marker = L.circleMarker([lat, lng], {
-        radius: 7, color: '#FF6600', fillColor: '#FF6600', fillOpacity: 0.9, weight: 2
-      }).addTo(state.map);
-      // Label with index
-      const label = L.tooltip({ permanent: true, direction: 'top', offset: [0, -10], className: 'dev-label' })
-        .setContent(`${savedPoints.length}`)
-        .setLatLng([lat, lng]);
-      state.map.addLayer(label);
-      savedMarkers.push({ marker, label });
-
-      document.getElementById('dev-cursor').textContent =
-        `[${savedPoints.length}] lat: ${pt.lat}, lng: ${pt.lng}`;
-      updateBar();
+      if (mode === 'route') {
+        routePoints.push({ lat, lng });
+        const m = L.circleMarker([lat, lng], {
+          radius: 6, color: '#FF6600', fillColor: '#FF6600', fillOpacity: 0.9, weight: 2
+        }).addTo(state.map);
+        const lbl = L.tooltip({ permanent: true, direction: 'top', offset: [0, -8] })
+          .setContent(`${routePoints.length}`).setLatLng([lat, lng]);
+        state.map.addLayer(lbl);
+        routeMarkers.push({ m, lbl });
+        document.getElementById('dev-hint').textContent = `[${routePoints.length}] lat: ${lat}, lng: ${lng}`;
+      } else {
+        openDialog(lat, lng, mode);
+      }
+      updateCounts();
     });
 
-    // Undo last point
+    // ---- Undo ----
     document.getElementById('dev-undo').addEventListener('click', () => {
-      if (!savedPoints.length) return;
-      savedPoints.pop();
-      const last = savedMarkers.pop();
-      if (last) { state.map.removeLayer(last.marker); state.map.removeLayer(last.label); }
-      document.getElementById('dev-cursor').textContent = savedPoints.length
-        ? `[${savedPoints.length}] lat: ${savedPoints.at(-1).lat}, lng: ${savedPoints.at(-1).lng}`
-        : 'Klick = Punkt speichern';
-      updateBar();
+      if (mode === 'route' && routePoints.length) {
+        routePoints.pop();
+        const last = routeMarkers.pop();
+        if (last) { state.map.removeLayer(last.m); state.map.removeLayer(last.lbl); }
+      } else if (mode === 'station' && newStations.length) {
+        newStations.pop();
+        const last = addedMarkers.pop();
+        if (last) state.map.removeLayer(last);
+      } else if (mode === 'parking' && newParking.length) {
+        newParking.pop();
+        const last = addedMarkers.pop();
+        if (last) state.map.removeLayer(last);
+      }
+      updateCounts();
     });
 
-    // Clear all
-    document.getElementById('dev-clear').addEventListener('click', () => {
-      savedPoints.length = 0;
-      savedMarkers.forEach(m => { state.map.removeLayer(m.marker); state.map.removeLayer(m.label); });
-      savedMarkers.length = 0;
-      document.getElementById('dev-cursor').textContent = 'Klick = Punkt speichern';
-      updateBar();
+    // ---- Reset ----
+    document.getElementById('dev-reset').addEventListener('click', () => {
+      routePoints.length = 0; newStations.length = 0; newParking.length = 0;
+      routeMarkers.forEach(r => { state.map.removeLayer(r.m); state.map.removeLayer(r.lbl); });
+      routeMarkers.length = 0;
+      addedMarkers.forEach(m => state.map.removeLayer(m));
+      addedMarkers.length = 0;
+      document.getElementById('dev-hint').textContent = 'Klick = Routenpunkt hinzufügen';
+      updateCounts();
     });
 
-    // Copy last coord
-    document.getElementById('dev-copy-last').addEventListener('click', () => {
-      if (!savedPoints.length) return;
-      const p = savedPoints.at(-1);
-      navigator.clipboard.writeText(`{ lat: ${p.lat}, lng: ${p.lng} }`)
-        .then(() => showToast('📋 Letzter Punkt kopiert!'));
-    });
-
-    // Export all as JSON file
+    // ---- Export stations.js ----
     document.getElementById('dev-export').addEventListener('click', () => {
-      if (!savedPoints.length) { showToast('Keine Punkte gespeichert.'); return; }
-      const json = JSON.stringify(savedPoints.map(p => ({ lat: p.lat, lng: p.lng })), null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
+      const allStations = [...(stations || []), ...newStations];
+      const allParking  = [...(parkingSpots || []), ...newParking];
+      const allRoute    = routePoints.length ? routePoints : (walkingPath || []);
+
+      let out = `// stations.js — exportiert via Dev-Modus ${new Date().toISOString().slice(0,10)}\n\n`;
+      out += `const stations = ${JSON.stringify(allStations, null, 2)};\n\n`;
+      out += `const parkingSpots = ${JSON.stringify(allParking, null, 2)};\n\n`;
+      out += `const walkingPath = ${JSON.stringify(allRoute, null, 2)};\n`;
+
+      const blob = new Blob([out], { type: 'text/javascript' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'wpp-punkte.json';
+      a.download = 'stations.js';
       a.click();
-      showToast(`✅ ${savedPoints.length} Punkte gespeichert!`);
+      showToast(`✅ stations.js exportiert (${allStations.length} Stände, ${allParking.length} Parkplätze, ${allRoute.length} Routenpunkte)`);
     });
+
+    updateCounts();
   }
 
   // ============================================
