@@ -19,10 +19,10 @@
       fitBoundsPadding: [50, 50]
     },
     path: {
-      color: '#722F37',
-      weight: 4,
-      opacity: 0.65,
-      dashArray: '8, 12',
+      color: '#FF6600',
+      weight: 6,
+      opacity: 0.92,
+      dashArray: null,
       lineJoin: 'round',
       lineCap: 'round'
     },

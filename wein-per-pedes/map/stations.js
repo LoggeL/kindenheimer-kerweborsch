@@ -132,8 +132,8 @@ const stations = [
   {
     id: 5,
     name: 'TVK & HSVL',
-    lat: 49.60523789102663,
-    lng: 8.153035640716555,
+    lat: 49.6054680,
+    lng: 8.1537649,
     description: 'Vereinsgemeinschaft mit herzlicher Atmosphäre und traditionellen Pfälzer Genüssen.',
     offerings: [
       {
@@ -306,7 +306,7 @@ const walkingPath = [
   { lat: 49.60232062789382, lng: 8.158797025680544 },
   { lat: 49.60123660425131, lng: 8.152542114257814 },
   { lat: 49.60306437218423, lng: 8.151715993881227 },
-  { lat: 49.60535838417402, lng: 8.15362572669983 },
+  { lat: 49.6054680, lng: 8.1537649 },
   { lat: 49.60519855160544, lng: 8.152874708175661 },
   { lat: 49.60608109881217, lng: 8.15240263938904 },
   { lat: 49.60675515953961, lng: 8.154119253158571 },
