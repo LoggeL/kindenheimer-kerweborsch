@@ -625,6 +625,126 @@
   }
 
   // ============================================
+  // Dev Mode 2 (?dev=2) — Drag & Edit existing markers
+  // ============================================
+  function initDevMode2() {
+    const isDev2 = new URLSearchParams(window.location.search).get('dev') === '2';
+    if (!isDev2) return;
+
+    // Badge
+    const badge = document.createElement('div');
+    badge.textContent = '⚙️ DEV 2 — Ziehen zum Verschieben';
+    badge.style.cssText = `position:fixed;top:10px;left:50%;transform:translateX(-50%);
+      background:#9b00ff;color:#fff;font-size:11px;font-weight:700;
+      padding:4px 12px;border-radius:12px;z-index:9999;pointer-events:none;white-space:nowrap;`;
+    document.body.appendChild(badge);
+
+    // Bottom bar
+    const bar = document.createElement('div');
+    bar.style.cssText = `position:fixed;bottom:0;left:0;right:0;
+      background:rgba(0,0,0,0.9);color:#cc88ff;font-family:monospace;font-size:12px;
+      padding:8px 12px;z-index:9999;display:flex;align-items:center;gap:10px;
+      border-top:2px solid #9b00ff;`;
+    bar.innerHTML = `
+      <span id="d2-hint" style="color:#aaa;flex:1">Marker ziehen → neue Position wird gespeichert</span>
+      <span id="d2-changes" style="color:#cc88ff">0 Änderungen</span>
+      <button id="d2-reset" style="background:#900;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">↩ Reset</button>
+      <button id="d2-export" style="background:#9b00ff;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:700">💾 stations.js exportieren</button>`;
+    document.body.appendChild(bar);
+
+    const changedStations = {};
+    const changedParking  = {};
+    const originalPositions = {};
+
+    function countChanges() {
+      return Object.keys(changedStations).length + Object.keys(changedParking).length;
+    }
+    function updateBar(hint) {
+      if (hint) document.getElementById('d2-hint').textContent = hint;
+      const n = countChanges();
+      document.getElementById('d2-changes').textContent = `${n} Änderung${n !== 1 ? 'en' : ''}`;
+    }
+
+    // Make station markers draggable
+    setTimeout(() => {
+      // Re-add station markers as draggable
+      state.markers.forEach(m => state.map.removeLayer(m));
+      state.markers.length = 0;
+
+      (stations || []).forEach(station => {
+        originalPositions[`s${station.id}`] = { lat: station.lat, lng: station.lng };
+        const icon = createStationIcon(station.id);
+        const marker = L.marker([station.lat, station.lng], { icon, draggable: true })
+          .addTo(state.map)
+          .bindTooltip(`${station.id}. ${station.name}`, { direction: 'top', offset: [0, -45] });
+
+        marker.on('dragend', () => {
+          const { lat, lng } = marker.getLatLng();
+          changedStations[station.id] = {
+            ...station,
+            lat: parseFloat(lat.toFixed(7)),
+            lng: parseFloat(lng.toFixed(7))
+          };
+          updateBar(`✅ Stand ${station.id} (${station.name}) verschoben`);
+        });
+
+        state.markers.push(marker);
+      });
+
+      // Re-add parking markers as draggable
+      (parkingSpots || []).forEach(spot => {
+        originalPositions[`p${spot.id}`] = { lat: spot.lat, lng: spot.lng };
+        const icon = createParkingIcon(spot.id);
+        const marker = L.marker([spot.lat, spot.lng], { icon, draggable: true })
+          .addTo(state.map)
+          .bindTooltip(`<strong>${spot.name}</strong>`, { direction: 'top', offset: [0, -48] });
+
+        marker.on('dragend', () => {
+          const { lat, lng } = marker.getLatLng();
+          changedParking[spot.id] = {
+            ...spot,
+            lat: parseFloat(lat.toFixed(7)),
+            lng: parseFloat(lng.toFixed(7))
+          };
+          updateBar(`✅ ${spot.id} (${spot.name}) verschoben`);
+        });
+      });
+
+      updateBar();
+    }, 500);
+
+    // Reset
+    document.getElementById('d2-reset').addEventListener('click', () => {
+      Object.keys(changedStations).forEach(k => delete changedStations[k]);
+      Object.keys(changedParking).forEach(k => delete changedParking[k]);
+      // Reload page to reset marker positions
+      window.location.reload();
+    });
+
+    // Export
+    document.getElementById('d2-export').addEventListener('click', () => {
+      const allStations = (stations || []).map(s =>
+        changedStations[s.id] ? changedStations[s.id] : s
+      );
+      const allParking = (parkingSpots || []).map(p =>
+        changedParking[p.id] ? changedParking[p.id] : p
+      );
+
+      let out = `// stations.js — exportiert via Dev-Modus 2 ${new Date().toISOString().slice(0,10)}\n\n`;
+      out += `const stations = ${JSON.stringify(allStations, null, 2)};\n\n`;
+      out += `const parkingSpots = ${JSON.stringify(allParking, null, 2)};\n\n`;
+      out += `const walkingPath = ${JSON.stringify(walkingPath || [], null, 2)};\n`;
+
+      const blob = new Blob([out], { type: 'text/javascript' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'stations.js';
+      a.click();
+      showToast(`✅ stations.js exportiert (${countChanges()} Änderungen)`);
+    });
+  }
+
+  // ============================================
   // Utilities
   // ============================================
   function escapeHtml(str) {
@@ -859,6 +979,7 @@
     initLocation();
     initAboutModal();
     initDevMode();
+    initDevMode2();
   }
 
   // Start when DOM is ready
