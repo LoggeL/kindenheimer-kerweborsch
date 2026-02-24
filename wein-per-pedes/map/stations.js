@@ -10,7 +10,7 @@
 const stations = [
   {
     id: 1,
-    name: 'Heiser Buchner',
+    name: 'Weingut Heiser-Buchner',
     lat: 49.60983032162279,
     lng: 8.180480003356935,
     description: 'Traditionelles Familienweingut mit langer Geschichte und feinsten Weinen aus der Pfalz.',
@@ -39,7 +39,7 @@ const stations = [
   },
   {
     id: 2,
-    name: 'Jens Griebel',
+    name: 'Weingut Jens Griebel',
     lat: 49.60502176933786,
     lng: 8.173763751983644,
     description: 'Modernes Familienweingut in dritter Generation mit Fokus auf regionaltypische Weine und nachhaltigem Anbau in den besten Lagen von Bockenheim.',
@@ -73,7 +73,7 @@ const stations = [
   },
   {
     id: 3,
-    name: 'Lauermann & Weyer',
+    name: 'Weingut Lauerman & Weyer',
     lat: 49.60088437405334,
     lng: 8.16910743713379,
     description: 'Innovative Weinmanufaktur mit modernen Interpretationen klassischer Pfälzer Rebsorten.',
@@ -102,7 +102,7 @@ const stations = [
   },
   {
     id: 4,
-    name: 'Kinnerumer Kerweborsch',
+    name: 'Kindenheimer Kerweborsch',
     lat: 49.60061422768533,
     lng: 8.16139340400696,
     description: 'Die Kerweborsch sorgen mit traditionellen Speisen und guter Stimmung für echtes Dorffest-Feeling.',
@@ -160,7 +160,7 @@ const stations = [
   },
   {
     id: 6,
-    name: 'Gernot Weber',
+    name: 'Weingut Gernot Weber',
     lat: 49.608156418445404,
     lng: 8.154612779617311,
     description: 'Prämiertes Weingut mit Fokus auf nachhaltigem Weinbau und charaktervollen Weinen.',
