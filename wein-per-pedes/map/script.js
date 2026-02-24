@@ -646,19 +646,19 @@
       padding:4px 12px;border-radius:12px;z-index:9999;pointer-events:none;`;
     document.body.appendChild(badge);
 
-    // ---- Add buttons (top right) ----
+    // ---- Add buttons (injected into bottom bar later) ----
     const addBar = document.createElement('div');
-    addBar.style.cssText = `position:fixed;top:10px;right:12px;display:flex;gap:6px;z-index:9999;`;
+    addBar.id = 'd2-add-bar';
+    addBar.style.cssText = `display:flex;gap:6px;`;
     addBar.innerHTML = `
-      <button id="d2-add-station" style="padding:5px 12px;border-radius:8px;border:2px solid #555;
-        background:rgba(0,0,0,0.75);color:#aaa;font-size:12px;cursor:pointer;">
-        ➕ Weinstand
+      <button id="d2-add-station" style="padding:5px 10px;border-radius:8px;border:2px solid #555;
+        background:rgba(60,60,60,0.95);color:#aaa;font-size:12px;cursor:pointer;white-space:nowrap;">
+        🍷 Stand
       </button>
-      <button id="d2-add-parking" style="padding:5px 12px;border-radius:8px;border:2px solid #555;
-        background:rgba(0,0,0,0.75);color:#aaa;font-size:12px;cursor:pointer;">
-        ➕ Parkplatz
+      <button id="d2-add-parking" style="padding:5px 10px;border-radius:8px;border:2px solid #555;
+        background:rgba(60,60,60,0.95);color:#aaa;font-size:12px;cursor:pointer;white-space:nowrap;">
+        🅿 Parkplatz
       </button>`;
-    document.body.appendChild(addBar);
 
     function setAddMode(m) {
       addMode = m;
@@ -745,11 +745,13 @@
       padding:8px 12px;z-index:9999;display:flex;align-items:center;gap:10px;
       border-top:2px solid #9b00ff;`;
     bar.innerHTML = `
-      <span id="d2-hint" style="color:#aaa;flex:1">Marker ziehen = verschieben</span>
-      <span id="d2-counts" style="color:#cc88ff"></span>
-      <button id="d2-reset" style="background:#900;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">↩ Reset</button>
-      <button id="d2-export" style="background:#9b00ff;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:700">💾 stations.js speichern</button>`;
+      <span id="d2-hint" style="color:#aaa;flex:1;min-width:80px;font-size:11px">Marker ziehen = verschieben</span>
+      <span id="d2-counts" style="color:#cc88ff;font-size:11px;white-space:nowrap"></span>
+      <button id="d2-reset" style="background:#900;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">↩</button>
+      <button id="d2-export" style="background:#9b00ff;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:11px;font-weight:700">💾 Speichern</button>`;
     document.body.appendChild(bar);
+    // Insert add buttons into bar
+    bar.insertBefore(addBar, bar.querySelector('#d2-reset'));
 
     function updateBar() {
       const moved = Object.keys(changedStations).length + Object.keys(changedParking).length;
