@@ -523,21 +523,26 @@
       });
     });
 
-    // Make path editable — add draggable vertex markers
-    if (walkingPath?.length) {
+    // Path editing: draggable vertices, click vertex to remove, click path to insert
+    const vertexMarkers = [];
+
+    function rebuildVertices() {
+      vertexMarkers.forEach(vm => state.map.removeLayer(vm));
+      vertexMarkers.length = 0;
+
       walkingPath.forEach((pt, idx) => {
         const vm = L.circleMarker([pt.lat, pt.lng], {
-          radius: 5, color: '#FF6600', fillColor: '#fff', fillOpacity: 1, weight: 2, draggable: false
+          radius: 6, color: '#FF6600', fillColor: '#fff', fillOpacity: 1, weight: 2
         }).addTo(state.map);
 
-        // Make draggable via custom drag
+        // Drag vertex
         vm.on('mousedown', function(e) {
+          L.DomEvent.stopPropagation(e);
           state.map.dragging.disable();
           const onMove = (ev) => {
             vm.setLatLng(ev.latlng);
             walkingPath[idx].lat = ev.latlng.lat;
             walkingPath[idx].lng = ev.latlng.lng;
-            // Update polyline
             state.pathLayer.setLatLngs(walkingPath.map(p => [p.lat, p.lng]));
           };
           const onUp = () => {
@@ -548,9 +553,52 @@
           };
           state.map.on('mousemove', onMove);
           state.map.on('mouseup', onUp);
-          L.DomEvent.stopPropagation(e);
         });
+
+        // Right-click vertex to remove
+        vm.on('contextmenu', function(e) {
+          L.DomEvent.stopPropagation(e);
+          L.DomEvent.preventDefault(e);
+          if (walkingPath.length <= 2) { showToast('Need at least 2 path points'); return; }
+          walkingPath.splice(idx, 1);
+          state.pathLayer.setLatLngs(walkingPath.map(p => [p.lat, p.lng]));
+          rebuildVertices();
+          updateDevLog();
+          showToast(`Removed vertex ${idx}`);
+        });
+
+        vertexMarkers.push(vm);
       });
+    }
+    rebuildVertices();
+
+    // Click on path polyline → insert new vertex between nearest segment
+    state.pathLayer.on('click', function(e) {
+      L.DomEvent.stopPropagation(e);
+      const clickLat = e.latlng.lat;
+      const clickLng = e.latlng.lng;
+
+      // Find nearest segment
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < walkingPath.length - 1; i++) {
+        const a = walkingPath[i], b = walkingPath[i + 1];
+        const dist = pointToSegmentDist(clickLat, clickLng, a.lat, a.lng, b.lat, b.lng);
+        if (dist < bestDist) { bestDist = dist; bestIdx = i + 1; }
+      }
+
+      walkingPath.splice(bestIdx, 0, { lat: clickLat, lng: clickLng });
+      state.pathLayer.setLatLngs(walkingPath.map(p => [p.lat, p.lng]));
+      rebuildVertices();
+      updateDevLog();
+      showToast(`Inserted vertex at index ${bestIdx}`);
+    });
+
+    function pointToSegmentDist(px, py, ax, ay, bx, by) {
+      const dx = bx - ax, dy = by - ay;
+      const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
+      const nx = ax + t * dx, ny = ay + t * dy;
+      return Math.sqrt((px - nx) ** 2 + (py - ny) ** 2);
     }
 
     // Click map → show coords
