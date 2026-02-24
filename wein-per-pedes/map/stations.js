@@ -219,8 +219,8 @@ const stations = [
   {
     id: 8,
     name: 'Weingut Benß',
-    lat: 49.610056384251195,
-    lng: 8.171027898788454,
+    lat: 49.6097549,
+    lng: 8.1720005,
     description: 'Traditionsweingut in vierter Generation mit Fokus auf elegante und langlebige Weine.',
     offerings: [
       {
@@ -321,6 +321,6 @@ const walkingPath = [
   { lat: 49.6077344400495, lng: 8.163088560104372 },
   { lat: 49.60907920738918, lng: 8.169091343879701 },
   { lat: 49.60961150261976, lng: 8.16889822483063 },
-  { lat: 49.610024550977165, lng: 8.171011805534365 },
+  { lat: 49.6097549, lng: 8.1720005 },
   { lat: 49.60963542438564, lng: 8.171505331993105 }
 ];
