@@ -255,9 +255,9 @@ const parkingSpots = [
   {
     id: 'P1',
     name: 'Parkplatz Bockenheim',
-    lat: 49.60328,
-    lng: 8.15268,
-    description: 'Parkplatz an der Weinstraße, direkt hinter der Rahl. Von hier aus entlang der Pestalozzistraße und Gartenstraße zur Route.'
+    lat: 49.6106226,
+    lng: 8.1821296,
+    description: 'Parkplatz Weinstraße 92, direkt hinter der Rahl. Von hier aus entlang der Pestalozzistraße und Gartenstraße zur Route.'
   },
   {
     id: 'P2',
