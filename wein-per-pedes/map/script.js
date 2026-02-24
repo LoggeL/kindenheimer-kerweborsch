@@ -93,7 +93,12 @@
     const coords = walkingPath.map(p => [p.lat, p.lng]);
     state.pathLayer = L.polyline(coords, CONFIG.path).addTo(state.map);
 
-    state.map.fitBounds(state.pathLayer.getBounds(), {
+    // Include parking spots in bounds so they're always visible
+    const allPoints = [
+      ...coords,
+      ...(parkingSpots || []).map(p => [p.lat, p.lng])
+    ];
+    state.map.fitBounds(L.latLngBounds(allPoints), {
       padding: CONFIG.map.fitBoundsPadding
     });
   }
