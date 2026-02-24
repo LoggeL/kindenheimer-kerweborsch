@@ -13,8 +13,9 @@
       center: [49.60502176933786, 8.173763751983644],
       defaultZoom: 14,
       locationZoom: 16,
-      tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      tileUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      labelsUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+      attribution: '&copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, Maxar, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
       fitBoundsPadding: [50, 50]
     },
     path: {
@@ -70,7 +71,14 @@
     state.map = L.map('map').setView(CONFIG.map.center, CONFIG.map.defaultZoom);
 
     L.tileLayer(CONFIG.map.tileUrl, {
-      attribution: CONFIG.map.attribution
+      attribution: CONFIG.map.attribution,
+      maxZoom: 19
+    }).addTo(state.map);
+
+    // Labels overlay (Straßen, Ortsbezeichnungen)
+    L.tileLayer(CONFIG.map.labelsUrl, {
+      maxZoom: 19,
+      opacity: 0.9
     }).addTo(state.map);
 
     addWalkingPath();
