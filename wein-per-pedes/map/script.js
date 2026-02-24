@@ -429,6 +429,9 @@
     const isDev = new URLSearchParams(window.location.search).get('dev') === '1';
     if (!isDev) return;
 
+    const savedPoints = [];
+    const savedMarkers = [];
+
     // Dev badge
     const badge = document.createElement('div');
     badge.id = 'dev-badge';
@@ -440,42 +443,88 @@
       pointer-events:none;letter-spacing:1px;`;
     document.body.appendChild(badge);
 
-    // Coord display bar
+    // Dev bar
     const bar = document.createElement('div');
-    bar.id = 'dev-coords';
+    bar.id = 'dev-bar';
     bar.style.cssText = `
       position:fixed;bottom:0;left:0;right:0;
-      background:rgba(0,0,0,0.82);color:#FF6600;
-      font-family:monospace;font-size:13px;
-      padding:8px 16px;z-index:9999;
-      display:flex;align-items:center;gap:12px;
+      background:rgba(0,0,0,0.88);color:#FF6600;
+      font-family:monospace;font-size:12px;
+      padding:8px 12px;z-index:9999;
+      display:flex;align-items:center;gap:8px;flex-wrap:wrap;
       border-top:2px solid #FF6600;`;
-    bar.innerHTML = `<span style="color:#aaa">Klick auf Karte:</span>
-      <span id="dev-lat">—</span>
-      <span id="dev-lng">—</span>
-      <button id="dev-copy" style="margin-left:auto;background:#FF6600;border:none;color:#fff;
-        padding:3px 10px;border-radius:6px;cursor:pointer;font-size:12px;">📋 Kopieren</button>`;
+    bar.innerHTML = `
+      <span id="dev-cursor" style="color:#aaa;flex:1;min-width:200px">Klick = Punkt speichern</span>
+      <span id="dev-count" style="color:#FF6600">0 Punkte</span>
+      <button id="dev-undo" style="background:#555;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">↩ Undo</button>
+      <button id="dev-clear" style="background:#900;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">🗑 Reset</button>
+      <button id="dev-copy-last" style="background:#444;border:none;color:#FF6600;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">📋 Letzten</button>
+      <button id="dev-export" style="background:#FF6600;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:11px;font-weight:700">💾 Alle speichern</button>`;
     document.body.appendChild(bar);
 
-    let lastCoords = null;
+    function updateBar() {
+      document.getElementById('dev-count').textContent = `${savedPoints.length} Punkte`;
+    }
 
     state.map.on('click', e => {
       const { lat, lng } = e.latlng;
-      lastCoords = { lat: lat.toFixed(7), lng: lng.toFixed(7) };
-      document.getElementById('dev-lat').textContent = `lat: ${lastCoords.lat}`;
-      document.getElementById('dev-lng').textContent = `lng: ${lastCoords.lng}`;
+      const pt = { lat: parseFloat(lat.toFixed(7)), lng: parseFloat(lng.toFixed(7)) };
+      savedPoints.push(pt);
 
-      // Temp marker
-      const tmp = L.circleMarker([lat, lng], {
+      const marker = L.circleMarker([lat, lng], {
         radius: 7, color: '#FF6600', fillColor: '#FF6600', fillOpacity: 0.9, weight: 2
       }).addTo(state.map);
-      setTimeout(() => state.map.removeLayer(tmp), 3000);
+      // Label with index
+      const label = L.tooltip({ permanent: true, direction: 'top', offset: [0, -10], className: 'dev-label' })
+        .setContent(`${savedPoints.length}`)
+        .setLatLng([lat, lng]);
+      state.map.addLayer(label);
+      savedMarkers.push({ marker, label });
+
+      document.getElementById('dev-cursor').textContent =
+        `[${savedPoints.length}] lat: ${pt.lat}, lng: ${pt.lng}`;
+      updateBar();
     });
 
-    document.getElementById('dev-copy').addEventListener('click', () => {
-      if (!lastCoords) return;
-      const text = `lat: ${lastCoords.lat},\nlng: ${lastCoords.lng}`;
-      navigator.clipboard.writeText(text).then(() => showToast('✅ Koordinaten kopiert!'));
+    // Undo last point
+    document.getElementById('dev-undo').addEventListener('click', () => {
+      if (!savedPoints.length) return;
+      savedPoints.pop();
+      const last = savedMarkers.pop();
+      if (last) { state.map.removeLayer(last.marker); state.map.removeLayer(last.label); }
+      document.getElementById('dev-cursor').textContent = savedPoints.length
+        ? `[${savedPoints.length}] lat: ${savedPoints.at(-1).lat}, lng: ${savedPoints.at(-1).lng}`
+        : 'Klick = Punkt speichern';
+      updateBar();
+    });
+
+    // Clear all
+    document.getElementById('dev-clear').addEventListener('click', () => {
+      savedPoints.length = 0;
+      savedMarkers.forEach(m => { state.map.removeLayer(m.marker); state.map.removeLayer(m.label); });
+      savedMarkers.length = 0;
+      document.getElementById('dev-cursor').textContent = 'Klick = Punkt speichern';
+      updateBar();
+    });
+
+    // Copy last coord
+    document.getElementById('dev-copy-last').addEventListener('click', () => {
+      if (!savedPoints.length) return;
+      const p = savedPoints.at(-1);
+      navigator.clipboard.writeText(`{ lat: ${p.lat}, lng: ${p.lng} }`)
+        .then(() => showToast('📋 Letzter Punkt kopiert!'));
+    });
+
+    // Export all as JSON file
+    document.getElementById('dev-export').addEventListener('click', () => {
+      if (!savedPoints.length) { showToast('Keine Punkte gespeichert.'); return; }
+      const json = JSON.stringify(savedPoints.map(p => ({ lat: p.lat, lng: p.lng })), null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'wpp-punkte.json';
+      a.click();
+      showToast(`✅ ${savedPoints.length} Punkte gespeichert!`);
     });
   }
 
