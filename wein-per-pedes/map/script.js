@@ -625,59 +625,149 @@
   }
 
   // ============================================
-  // Dev Mode 2 (?dev=2) — Drag & Edit existing markers
+  // Dev Mode 2 (?dev=2) — Edit + Add stations/parking
   // ============================================
   function initDevMode2() {
     const isDev2 = new URLSearchParams(window.location.search).get('dev') === '2';
     if (!isDev2) return;
 
-    // Badge
+    let addMode = null; // null | 'station' | 'parking'
+    const changedStations = {};
+    const changedParking  = {};
+    const newStations     = [];
+    const newParking      = [];
+    const newMarkers      = [];
+
+    // ---- Badge ----
     const badge = document.createElement('div');
-    badge.textContent = '⚙️ DEV 2 — Ziehen zum Verschieben';
+    badge.textContent = '⚙️ DEV 2';
     badge.style.cssText = `position:fixed;top:10px;left:50%;transform:translateX(-50%);
       background:#9b00ff;color:#fff;font-size:11px;font-weight:700;
-      padding:4px 12px;border-radius:12px;z-index:9999;pointer-events:none;white-space:nowrap;`;
+      padding:4px 12px;border-radius:12px;z-index:9999;pointer-events:none;`;
     document.body.appendChild(badge);
 
-    // Bottom bar
+    // ---- Add buttons (top right) ----
+    const addBar = document.createElement('div');
+    addBar.style.cssText = `position:fixed;top:10px;right:12px;display:flex;gap:6px;z-index:9999;`;
+    addBar.innerHTML = `
+      <button id="d2-add-station" style="padding:5px 12px;border-radius:8px;border:2px solid #555;
+        background:rgba(0,0,0,0.75);color:#aaa;font-size:12px;cursor:pointer;">
+        ➕ Weinstand
+      </button>
+      <button id="d2-add-parking" style="padding:5px 12px;border-radius:8px;border:2px solid #555;
+        background:rgba(0,0,0,0.75);color:#aaa;font-size:12px;cursor:pointer;">
+        ➕ Parkplatz
+      </button>`;
+    document.body.appendChild(addBar);
+
+    function setAddMode(m) {
+      addMode = m;
+      document.getElementById('d2-add-station').style.cssText = `padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;border:2px solid ${m==='station'?'#FF6600':'#555'};background:${m==='station'?'#FF6600':'rgba(0,0,0,0.75)'};color:${m==='station'?'#fff':'#aaa'}`;
+      document.getElementById('d2-add-parking').style.cssText = `padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;border:2px solid ${m==='parking'?'#1a73e8':'#555'};background:${m==='parking'?'#1a73e8':'rgba(0,0,0,0.75)'};color:${m==='parking'?'#fff':'#aaa'}`;
+      document.getElementById('d2-hint').textContent = m
+        ? `Klick auf Karte = Neuen ${m==='station'?'Weinstand':'Parkplatz'} setzen`
+        : 'Marker ziehen = verschieben';
+    }
+
+    document.getElementById('d2-add-station').addEventListener('click', () => setAddMode(addMode === 'station' ? null : 'station'));
+    document.getElementById('d2-add-parking').addEventListener('click', () => setAddMode(addMode === 'parking' ? null : 'parking'));
+
+    // ---- Name dialog ----
+    const dialog = document.createElement('div');
+    dialog.style.cssText = `display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      background:#1a1a1a;border:2px solid #9b00ff;border-radius:12px;padding:20px 24px;
+      z-index:10000;min-width:280px;color:#fff;font-family:sans-serif;`;
+    dialog.innerHTML = `
+      <p id="d2-dlg-title" style="margin:0 0 12px;font-size:14px;font-weight:700;color:#cc88ff"></p>
+      <input id="d2-dlg-name" type="text" placeholder="Name..."
+        style="width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #555;
+        background:#333;color:#fff;font-size:14px;margin-bottom:8px;">
+      <input id="d2-dlg-desc" type="text" placeholder="Beschreibung (optional)"
+        style="width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #555;
+        background:#333;color:#fff;font-size:14px;margin-bottom:14px;">
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button id="d2-dlg-cancel" style="padding:6px 14px;border-radius:6px;border:1px solid #555;background:#333;color:#aaa;cursor:pointer">Abbrechen</button>
+        <button id="d2-dlg-ok" style="padding:6px 14px;border-radius:6px;border:none;background:#9b00ff;color:#fff;font-weight:700;cursor:pointer">Hinzufügen</button>
+      </div>`;
+    document.body.appendChild(dialog);
+
+    let pendingCoord = null;
+    let pendingType  = null;
+
+    document.getElementById('d2-dlg-cancel').addEventListener('click', () => {
+      dialog.style.display = 'none'; pendingCoord = null; pendingType = null;
+    });
+    document.getElementById('d2-dlg-ok').addEventListener('click', confirmAdd);
+    document.getElementById('d2-dlg-name').addEventListener('keydown', e => { if (e.key === 'Enter') confirmAdd(); });
+
+    function confirmAdd() {
+      const name = document.getElementById('d2-dlg-name').value.trim();
+      const desc = document.getElementById('d2-dlg-desc').value.trim();
+      if (!name || !pendingCoord) return;
+      dialog.style.display = 'none';
+
+      if (pendingType === 'station') {
+        const id = (stations?.length || 0) + newStations.length + 1;
+        const s = { id, name, lat: pendingCoord.lat, lng: pendingCoord.lng, description: desc, offerings: [] };
+        newStations.push(s);
+        const m = L.marker([s.lat, s.lng], { icon: createStationIcon(id), draggable: true })
+          .addTo(state.map).bindTooltip(`⭐ NEU: ${name}`, { direction: 'top', offset: [0, -45] });
+        m.on('dragend', () => {
+          const {lat, lng} = m.getLatLng();
+          s.lat = parseFloat(lat.toFixed(7)); s.lng = parseFloat(lng.toFixed(7));
+          updateBar();
+        });
+        newMarkers.push(m);
+        showToast(`🍷 "${name}" hinzugefügt`);
+      } else {
+        const id = `P${(parkingSpots?.length || 0) + newParking.length + 1}`;
+        const p = { id, name, lat: pendingCoord.lat, lng: pendingCoord.lng, description: desc };
+        newParking.push(p);
+        const m = L.marker([p.lat, p.lng], { icon: createParkingIcon(id), draggable: true })
+          .addTo(state.map).bindTooltip(`⭐ NEU: ${name}`, { direction: 'top', offset: [0, -48] });
+        m.on('dragend', () => {
+          const {lat, lng} = m.getLatLng();
+          p.lat = parseFloat(lat.toFixed(7)); p.lng = parseFloat(lng.toFixed(7));
+          updateBar();
+        });
+        newMarkers.push(m);
+        showToast(`🅿 "${name}" hinzugefügt`);
+      }
+      pendingCoord = null; pendingType = null;
+      setAddMode(null);
+      updateBar();
+    }
+
+    // ---- Bottom bar ----
     const bar = document.createElement('div');
     bar.style.cssText = `position:fixed;bottom:0;left:0;right:0;
       background:rgba(0,0,0,0.9);color:#cc88ff;font-family:monospace;font-size:12px;
       padding:8px 12px;z-index:9999;display:flex;align-items:center;gap:10px;
       border-top:2px solid #9b00ff;`;
     bar.innerHTML = `
-      <span id="d2-hint" style="color:#aaa;flex:1">Marker ziehen → neue Position wird gespeichert</span>
-      <span id="d2-changes" style="color:#cc88ff">0 Änderungen</span>
+      <span id="d2-hint" style="color:#aaa;flex:1">Marker ziehen = verschieben</span>
+      <span id="d2-counts" style="color:#cc88ff"></span>
       <button id="d2-reset" style="background:#900;border:none;color:#fff;padding:3px 8px;border-radius:5px;cursor:pointer;font-size:11px">↩ Reset</button>
-      <button id="d2-export" style="background:#9b00ff;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:700">💾 stations.js exportieren</button>`;
+      <button id="d2-export" style="background:#9b00ff;border:none;color:#fff;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:700">💾 stations.js speichern</button>`;
     document.body.appendChild(bar);
 
-    const changedStations = {};
-    const changedParking  = {};
-    const originalPositions = {};
-
-    function countChanges() {
-      return Object.keys(changedStations).length + Object.keys(changedParking).length;
-    }
-    function updateBar(hint) {
-      if (hint) document.getElementById('d2-hint').textContent = hint;
-      const n = countChanges();
-      document.getElementById('d2-changes').textContent = `${n} Änderung${n !== 1 ? 'en' : ''}`;
+    function updateBar() {
+      const moved = Object.keys(changedStations).length + Object.keys(changedParking).length;
+      const added = newStations.length + newParking.length;
+      document.getElementById('d2-counts').textContent =
+        `${moved} verschoben · ${added} neu`;
     }
 
-    // Make station markers draggable
+    // ---- Make existing markers draggable ----
     setTimeout(() => {
-      // Re-add station markers as draggable
       state.markers.forEach(m => state.map.removeLayer(m));
       state.markers.length = 0;
 
       (stations || []).forEach(station => {
-        originalPositions[`s${station.id}`] = { lat: station.lat, lng: station.lng };
-        const icon = createStationIcon(station.id);
-        const marker = L.marker([station.lat, station.lng], { icon, draggable: true })
-          .addTo(state.map)
+        const marker = L.marker([station.lat, station.lng], {
+          icon: createStationIcon(station.id), draggable: true
+        }).addTo(state.map)
           .bindTooltip(`${station.id}. ${station.name}`, { direction: 'top', offset: [0, -45] });
-
         marker.on('dragend', () => {
           const { lat, lng } = marker.getLatLng();
           changedStations[station.id] = {
@@ -685,20 +775,17 @@
             lat: parseFloat(lat.toFixed(7)),
             lng: parseFloat(lng.toFixed(7))
           };
-          updateBar(`✅ Stand ${station.id} (${station.name}) verschoben`);
+          document.getElementById('d2-hint').textContent = `✅ Stand ${station.id} verschoben`;
+          updateBar();
         });
-
         state.markers.push(marker);
       });
 
-      // Re-add parking markers as draggable
       (parkingSpots || []).forEach(spot => {
-        originalPositions[`p${spot.id}`] = { lat: spot.lat, lng: spot.lng };
-        const icon = createParkingIcon(spot.id);
-        const marker = L.marker([spot.lat, spot.lng], { icon, draggable: true })
-          .addTo(state.map)
+        const marker = L.marker([spot.lat, spot.lng], {
+          icon: createParkingIcon(spot.id), draggable: true
+        }).addTo(state.map)
           .bindTooltip(`<strong>${spot.name}</strong>`, { direction: 'top', offset: [0, -48] });
-
         marker.on('dragend', () => {
           const { lat, lng } = marker.getLatLng();
           changedParking[spot.id] = {
@@ -706,31 +793,42 @@
             lat: parseFloat(lat.toFixed(7)),
             lng: parseFloat(lng.toFixed(7))
           };
-          updateBar(`✅ ${spot.id} (${spot.name}) verschoben`);
+          document.getElementById('d2-hint').textContent = `✅ ${spot.id} verschoben`;
+          updateBar();
         });
       });
 
       updateBar();
     }, 500);
 
-    // Reset
-    document.getElementById('d2-reset').addEventListener('click', () => {
-      Object.keys(changedStations).forEach(k => delete changedStations[k]);
-      Object.keys(changedParking).forEach(k => delete changedParking[k]);
-      // Reload page to reset marker positions
-      window.location.reload();
+    // ---- Map click → add new marker ----
+    state.map.on('click', e => {
+      if (!addMode || dialog.style.display === 'block') return;
+      pendingCoord = { lat: parseFloat(e.latlng.lat.toFixed(7)), lng: parseFloat(e.latlng.lng.toFixed(7)) };
+      pendingType = addMode;
+      document.getElementById('d2-dlg-title').textContent =
+        addMode === 'station' ? '🍷 Neuer Weinstand' : '🅿 Neuer Parkplatz';
+      document.getElementById('d2-dlg-name').value = '';
+      document.getElementById('d2-dlg-desc').value = '';
+      dialog.style.display = 'block';
+      setTimeout(() => document.getElementById('d2-dlg-name').focus(), 50);
     });
 
-    // Export
-    document.getElementById('d2-export').addEventListener('click', () => {
-      const allStations = (stations || []).map(s =>
-        changedStations[s.id] ? changedStations[s.id] : s
-      );
-      const allParking = (parkingSpots || []).map(p =>
-        changedParking[p.id] ? changedParking[p.id] : p
-      );
+    // ---- Reset ----
+    document.getElementById('d2-reset').addEventListener('click', () => window.location.reload());
 
-      let out = `// stations.js — exportiert via Dev-Modus 2 ${new Date().toISOString().slice(0,10)}\n\n`;
+    // ---- Export ----
+    document.getElementById('d2-export').addEventListener('click', () => {
+      const allStations = [
+        ...(stations || []).map(s => changedStations[s.id] ?? s),
+        ...newStations
+      ];
+      const allParking = [
+        ...(parkingSpots || []).map(p => changedParking[p.id] ?? p),
+        ...newParking
+      ];
+
+      let out = `// stations.js — exportiert via Dev-Modus 2 · ${new Date().toISOString().slice(0,10)}\n\n`;
       out += `const stations = ${JSON.stringify(allStations, null, 2)};\n\n`;
       out += `const parkingSpots = ${JSON.stringify(allParking, null, 2)};\n\n`;
       out += `const walkingPath = ${JSON.stringify(walkingPath || [], null, 2)};\n`;
@@ -740,7 +838,7 @@
       a.href = URL.createObjectURL(blob);
       a.download = 'stations.js';
       a.click();
-      showToast(`✅ stations.js exportiert (${countChanges()} Änderungen)`);
+      showToast(`✅ stations.js gespeichert`);
     });
   }
 
