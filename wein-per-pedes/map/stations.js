@@ -253,7 +253,7 @@ const parkingSpots = [
     "name": "Parkplatz Kindenheim",
     "lat": 49.60704259649285,
     "lng": 8.1506484746933,
-    "description": "Parkplatz an der Sport- und Freizeithalle Kindenheim."
+    "description": "Parkplatz am Friedhof Kindenheim."
   },
   {
     "id": "P3",
