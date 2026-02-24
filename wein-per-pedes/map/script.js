@@ -485,25 +485,29 @@
     const logEl = document.getElementById('dev-log');
     const clickCoordEl = document.getElementById('dev-click-coord');
 
-    // Make station markers draggable
-    state.markers.forEach((marker, i) => {
-      const station = stations[i];
-      marker.dragging.enable();
+    // Re-create station markers as draggable
+    state.markers.forEach(m => state.map.removeLayer(m));
+    state.markers = [];
+    stations.forEach(station => {
+      const icon = createStationIcon(station.id);
+      const marker = L.marker([station.lat, station.lng], { icon, draggable: true })
+        .addTo(state.map)
+        .bindTooltip(station.name, { direction: 'top', offset: [0, -45] });
+      marker.on('click', () => showStation(station));
       marker.on('dragend', () => {
         const ll = marker.getLatLng();
         station.lat = ll.lat;
         station.lng = ll.lng;
         updateDevLog();
       });
+      state.markers.push(marker);
     });
 
-    // Track parking markers separately — re-add them as draggable
-    state._parkingMarkers = state._parkingMarkers || [];
-    // (parking markers weren't stored — re-create them draggable)
-    // Remove old parking markers first
+    // Re-create parking markers as draggable
     state.map.eachLayer(layer => {
-      if (layer instanceof L.Marker && layer.options.icon?.options?.className === 'parking-marker-icon') {
-        state.map.removeLayer(layer);
+      if (layer instanceof L.Marker && !state.markers.includes(layer) && layer !== state.userMarker) {
+        // Check if it's a parking marker by icon class
+        try { if (layer.options.icon?.options?.className === 'parking-marker-icon') state.map.removeLayer(layer); } catch(e) {}
       }
     });
     parkingSpots.forEach(spot => {
@@ -517,7 +521,6 @@
         spot.lng = ll.lng;
         updateDevLog();
       });
-      state._parkingMarkers.push(m);
     });
 
     // Make path editable — add draggable vertex markers
