@@ -450,6 +450,151 @@
   }
 
   // ============================================
+  // Dev Mode (hidden: ?dev=1)
+  // ============================================
+  function initDevMode() {
+    if (new URLSearchParams(window.location.search).get('dev') !== '1') return;
+
+    // Dev panel
+    const panel = document.createElement('div');
+    panel.id = 'dev-panel';
+    panel.innerHTML = `
+      <style>
+        #dev-panel{position:fixed;top:60px;right:10px;z-index:10000;background:rgba(0,0,0,0.88);color:#0f0;font-family:monospace;font-size:12px;padding:10px 14px;border-radius:8px;max-width:340px;max-height:70vh;overflow-y:auto;pointer-events:auto;backdrop-filter:blur(6px)}
+        #dev-panel h3{margin:0 0 6px;color:#ff0;font-size:13px}
+        #dev-panel .dev-log{margin:4px 0;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+        #dev-panel .dev-log .label{color:#aaa}
+        #dev-panel .dev-log .coord{color:#0f0;cursor:pointer;user-select:all}
+        #dev-panel button{background:#333;color:#0f0;border:1px solid #0f0;padding:4px 10px;border-radius:4px;cursor:pointer;margin:4px 4px 0 0;font-family:monospace;font-size:11px}
+        #dev-panel button:hover{background:#0f0;color:#000}
+        #dev-panel .dev-click-coord{color:#ff0;margin-top:6px}
+        .dev-crosshair .leaflet-container{cursor:crosshair!important}
+      </style>
+      <h3>🔧 DEV MODE</h3>
+      <div>Drag markers to reposition. Click map for coords.</div>
+      <div id="dev-click-coord" class="dev-click-coord"></div>
+      <div id="dev-log"></div>
+      <div style="margin-top:8px">
+        <button id="dev-copy-stations">📋 Copy stations.js</button>
+        <button id="dev-copy-path">📋 Copy path</button>
+      </div>
+    `;
+    document.body.appendChild(panel);
+    document.body.classList.add('dev-crosshair');
+
+    const logEl = document.getElementById('dev-log');
+    const clickCoordEl = document.getElementById('dev-click-coord');
+
+    // Make station markers draggable
+    state.markers.forEach((marker, i) => {
+      const station = stations[i];
+      marker.dragging.enable();
+      marker.on('dragend', () => {
+        const ll = marker.getLatLng();
+        station.lat = ll.lat;
+        station.lng = ll.lng;
+        updateDevLog();
+      });
+    });
+
+    // Track parking markers separately — re-add them as draggable
+    state._parkingMarkers = state._parkingMarkers || [];
+    // (parking markers weren't stored — re-create them draggable)
+    // Remove old parking markers first
+    state.map.eachLayer(layer => {
+      if (layer instanceof L.Marker && layer.options.icon?.options?.className === 'parking-marker-icon') {
+        state.map.removeLayer(layer);
+      }
+    });
+    parkingSpots.forEach(spot => {
+      const icon = createParkingIcon(spot.id);
+      const m = L.marker([spot.lat, spot.lng], { icon, draggable: true })
+        .addTo(state.map)
+        .bindTooltip(`<strong>${spot.name}</strong>`, { direction: 'top', offset: [0, -48] });
+      m.on('dragend', () => {
+        const ll = m.getLatLng();
+        spot.lat = ll.lat;
+        spot.lng = ll.lng;
+        updateDevLog();
+      });
+      state._parkingMarkers.push(m);
+    });
+
+    // Make path editable — add draggable vertex markers
+    if (walkingPath?.length) {
+      walkingPath.forEach((pt, idx) => {
+        const vm = L.circleMarker([pt.lat, pt.lng], {
+          radius: 5, color: '#FF6600', fillColor: '#fff', fillOpacity: 1, weight: 2, draggable: false
+        }).addTo(state.map);
+
+        // Make draggable via custom drag
+        vm.on('mousedown', function(e) {
+          state.map.dragging.disable();
+          const onMove = (ev) => {
+            vm.setLatLng(ev.latlng);
+            walkingPath[idx].lat = ev.latlng.lat;
+            walkingPath[idx].lng = ev.latlng.lng;
+            // Update polyline
+            state.pathLayer.setLatLngs(walkingPath.map(p => [p.lat, p.lng]));
+          };
+          const onUp = () => {
+            state.map.off('mousemove', onMove);
+            state.map.off('mouseup', onUp);
+            state.map.dragging.enable();
+            updateDevLog();
+          };
+          state.map.on('mousemove', onMove);
+          state.map.on('mouseup', onUp);
+          L.DomEvent.stopPropagation(e);
+        });
+      });
+    }
+
+    // Click map → show coords
+    state.map.on('click', e => {
+      const { lat, lng } = e.latlng;
+      const text = `${lat.toFixed(14)}, ${lng.toFixed(14)}`;
+      clickCoordEl.textContent = `📍 ${text}`;
+      navigator.clipboard?.writeText(text);
+    });
+
+    function updateDevLog() {
+      let html = '<h3 style="margin-top:8px">Stations</h3>';
+      stations.forEach(s => {
+        html += `<div class="dev-log"><span class="label">${s.id}. ${s.name}</span><br><span class="coord">${s.lat.toFixed(14)}, ${s.lng.toFixed(14)}</span></div>`;
+      });
+      html += '<h3 style="margin-top:8px">Parking</h3>';
+      parkingSpots.forEach(p => {
+        html += `<div class="dev-log"><span class="label">${p.id}</span><br><span class="coord">${p.lat.toFixed(14)}, ${p.lng.toFixed(14)}</span></div>`;
+      });
+      logEl.innerHTML = html;
+    }
+    updateDevLog();
+
+    // Copy buttons
+    document.getElementById('dev-copy-stations').addEventListener('click', () => {
+      const out = generateStationsJS();
+      navigator.clipboard?.writeText(out).then(() => showToast('stations.js copied!'));
+    });
+
+    document.getElementById('dev-copy-path').addEventListener('click', () => {
+      const out = 'const walkingPath = [\n' +
+        walkingPath.map(p => `  { lat: ${p.lat}, lng: ${p.lng} }`).join(',\n') +
+        '\n];';
+      navigator.clipboard?.writeText(out).then(() => showToast('Walking path copied!'));
+    });
+
+    function generateStationsJS() {
+      let out = 'const stations = ' + JSON.stringify(stations, null, 2) + ';\n\n';
+      out += 'const parkingSpots = ' + JSON.stringify(parkingSpots, null, 2) + ';\n\n';
+      out += 'const walkingPath = [\n' +
+        walkingPath.map(p => `  { lat: ${p.lat}, lng: ${p.lng} }`).join(',\n') +
+        '\n];';
+      return out;
+    }
+  }
+
+  // ============================================
   // Initialize
   // ============================================
   function init() {
@@ -460,6 +605,7 @@
     initPanel();
     initLocation();
     initAboutModal();
+    initDevMode();
   }
 
   // Start when DOM is ready
