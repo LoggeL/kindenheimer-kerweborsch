@@ -423,6 +423,63 @@
   }
 
   // ============================================
+  // Dev Mode (?dev=1)
+  // ============================================
+  function initDevMode() {
+    const isDev = new URLSearchParams(window.location.search).get('dev') === '1';
+    if (!isDev) return;
+
+    // Dev badge
+    const badge = document.createElement('div');
+    badge.id = 'dev-badge';
+    badge.textContent = '⚙️ DEV';
+    badge.style.cssText = `
+      position:fixed;top:10px;left:50%;transform:translateX(-50%);
+      background:#FF6600;color:#fff;font-size:11px;font-weight:700;
+      padding:4px 10px;border-radius:12px;z-index:9999;
+      pointer-events:none;letter-spacing:1px;`;
+    document.body.appendChild(badge);
+
+    // Coord display bar
+    const bar = document.createElement('div');
+    bar.id = 'dev-coords';
+    bar.style.cssText = `
+      position:fixed;bottom:0;left:0;right:0;
+      background:rgba(0,0,0,0.82);color:#FF6600;
+      font-family:monospace;font-size:13px;
+      padding:8px 16px;z-index:9999;
+      display:flex;align-items:center;gap:12px;
+      border-top:2px solid #FF6600;`;
+    bar.innerHTML = `<span style="color:#aaa">Klick auf Karte:</span>
+      <span id="dev-lat">—</span>
+      <span id="dev-lng">—</span>
+      <button id="dev-copy" style="margin-left:auto;background:#FF6600;border:none;color:#fff;
+        padding:3px 10px;border-radius:6px;cursor:pointer;font-size:12px;">📋 Kopieren</button>`;
+    document.body.appendChild(bar);
+
+    let lastCoords = null;
+
+    state.map.on('click', e => {
+      const { lat, lng } = e.latlng;
+      lastCoords = { lat: lat.toFixed(7), lng: lng.toFixed(7) };
+      document.getElementById('dev-lat').textContent = `lat: ${lastCoords.lat}`;
+      document.getElementById('dev-lng').textContent = `lng: ${lastCoords.lng}`;
+
+      // Temp marker
+      const tmp = L.circleMarker([lat, lng], {
+        radius: 7, color: '#FF6600', fillColor: '#FF6600', fillOpacity: 0.9, weight: 2
+      }).addTo(state.map);
+      setTimeout(() => state.map.removeLayer(tmp), 3000);
+    });
+
+    document.getElementById('dev-copy').addEventListener('click', () => {
+      if (!lastCoords) return;
+      const text = `lat: ${lastCoords.lat},\nlng: ${lastCoords.lng}`;
+      navigator.clipboard.writeText(text).then(() => showToast('✅ Koordinaten kopiert!'));
+    });
+  }
+
+  // ============================================
   // Utilities
   // ============================================
   function escapeHtml(str) {
