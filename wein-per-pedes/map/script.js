@@ -660,17 +660,20 @@
         🅿 Parkplatz
       </button>`;
 
+    const btnStation = addBar.querySelector('#d2-add-station');
+    const btnParking = addBar.querySelector('#d2-add-parking');
+
     function setAddMode(m) {
       addMode = m;
-      document.getElementById('d2-add-station').style.cssText = `padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;border:2px solid ${m==='station'?'#FF6600':'#555'};background:${m==='station'?'#FF6600':'rgba(0,0,0,0.75)'};color:${m==='station'?'#fff':'#aaa'}`;
-      document.getElementById('d2-add-parking').style.cssText = `padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;border:2px solid ${m==='parking'?'#1a73e8':'#555'};background:${m==='parking'?'#1a73e8':'rgba(0,0,0,0.75)'};color:${m==='parking'?'#fff':'#aaa'}`;
+      btnStation.style.cssText = `padding:5px 10px;border-radius:8px;cursor:pointer;font-size:12px;white-space:nowrap;border:2px solid ${m==='station'?'#FF6600':'#555'};background:${m==='station'?'#FF6600':'rgba(60,60,60,0.95)'};color:${m==='station'?'#fff':'#aaa'}`;
+      btnParking.style.cssText  = `padding:5px 10px;border-radius:8px;cursor:pointer;font-size:12px;white-space:nowrap;border:2px solid ${m==='parking'?'#1a73e8':'#555'};background:${m==='parking'?'#1a73e8':'rgba(60,60,60,0.95)'};color:${m==='parking'?'#fff':'#aaa'}`;
       document.getElementById('d2-hint').textContent = m
         ? `Klick auf Karte = Neuen ${m==='station'?'Weinstand':'Parkplatz'} setzen`
         : 'Marker ziehen = verschieben';
     }
 
-    document.getElementById('d2-add-station').addEventListener('click', () => setAddMode(addMode === 'station' ? null : 'station'));
-    document.getElementById('d2-add-parking').addEventListener('click', () => setAddMode(addMode === 'parking' ? null : 'parking'));
+    btnStation.addEventListener('click', () => setAddMode(addMode === 'station' ? null : 'station'));
+    btnParking.addEventListener('click', () => setAddMode(addMode === 'parking' ? null : 'parking'));
 
     // ---- Name dialog ----
     const dialog = document.createElement('div');
