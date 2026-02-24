@@ -75,6 +75,7 @@
 
     addWalkingPath();
     addStationMarkers();
+    addParkingMarkers();
     setupMapEvents();
   }
 
@@ -113,6 +114,28 @@
 
       marker.on('click', () => showStation(station));
       state.markers.push(marker);
+    });
+  }
+
+  function createParkingIcon(id) {
+    return L.divIcon({
+      className: 'parking-marker-icon',
+      html: `<div class="parking-marker"><span>P</span><div class="parking-label">${id}</div></div>`,
+      iconSize: [36, 48],
+      iconAnchor: [18, 44],
+      popupAnchor: [0, -44]
+    });
+  }
+
+  function addParkingMarkers() {
+    if (!parkingSpots?.length) return;
+    parkingSpots.forEach(spot => {
+      const icon = createParkingIcon(spot.id);
+      L.marker([spot.lat, spot.lng], { icon })
+        .addTo(state.map)
+        .bindTooltip(`<strong>${spot.name}</strong><br><span style="font-size:0.82rem">${spot.description}</span>`, {
+          direction: 'top', offset: [0, -48], permanent: false, maxWidth: 220
+        });
     });
   }
 

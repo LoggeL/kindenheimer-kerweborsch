@@ -248,6 +248,27 @@ const stations = [
 ];
 
 /**
+ * Parking spots
+ * @type {Array<{id: number, name: string, lat: number, lng: number, description: string}>}
+ */
+const parkingSpots = [
+  {
+    id: 'P1',
+    name: 'Parkplatz Bockenheim',
+    lat: 49.60328,
+    lng: 8.15268,
+    description: 'Parkplatz an der Weinstraße, direkt hinter der Rahl. Von hier aus entlang der Pestalozzistraße und Gartenstraße zur Route.'
+  },
+  {
+    id: 'P2',
+    name: 'Parkplatz Kindenheim',
+    lat: 49.60853,
+    lng: 8.15962,
+    description: 'Parkplatz an der Sport- und Freizeithalle Kindenheim.'
+  }
+];
+
+/**
  * Walking path coordinates (cleaned, no duplicates)
  * @type {Array<{lat: number, lng: number}>}
  */

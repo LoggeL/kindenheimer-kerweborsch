@@ -941,3 +941,37 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Parking Markers ── */
+.parking-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.parking-marker span {
+  width: 34px;
+  height: 34px;
+  background: #1a5fa8;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+  font-family: 'Lato', sans-serif;
+  border: 2px solid #fff;
+}
+.parking-label {
+  background: #1a5fa8;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 0 0 4px 4px;
+  letter-spacing: 0.04em;
+  border: 2px solid #fff;
+  border-top: none;
+  margin-top: -1px;
+}
