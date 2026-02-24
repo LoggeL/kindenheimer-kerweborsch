@@ -41,7 +41,7 @@ const stations = [
         "price": "4,50€/Glas"
       },
       {
-        "name": "2021 Grauburgunder "Kalkstein"",
+        "name": "2021 Grauburgunder \"Kalkstein\"",
         "description": "Cremiger Weißwein mit Aromen von reifen Birnen und Haselnuss",
         "price": "5,00€/Glas"
       },
@@ -80,7 +80,7 @@ const stations = [
         "price": "4,50€/Glas"
       },
       {
-        "name": "Flammkuchen "Elsässer Art"",
+        "name": "Flammkuchen \"Elsässer Art\"",
         "description": "Mit Speck, Zwiebeln und Schmand auf dünnem Teig",
         "price": "7,50€"
       },
@@ -220,7 +220,7 @@ const stations = [
         "price": "6,00€/Glas"
       },
       {
-        "name": "2020 Cuvée Rot "Heimaterde"",
+        "name": "2020 Cuvée Rot \"Heimaterde\"",
         "description": "Kraftvolle Cuvée aus Merlot, Cabernet und Dornfelder",
         "price": "5,50€/Glas"
       },
