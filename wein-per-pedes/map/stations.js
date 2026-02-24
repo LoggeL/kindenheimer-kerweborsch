@@ -1,3 +1,5 @@
+// stations.js — exportiert via Dev-Modus 2 · 2026-02-24
+
 const stations = [
   {
     "id": 1,
@@ -242,8 +244,8 @@ const parkingSpots = [
   {
     "id": "P1",
     "name": "Parkplatz Bockenheim",
-    "lat": 49.604,
-    "lng": 8.1815,
+    "lat": 49.6087564,
+    "lng": 8.1824219,
     "description": "Parkplatz Weinstraße 92, direkt hinter der Rahl. Von hier aus entlang der Pestalozzistraße und Gartenstraße zur Route."
   },
   {
@@ -252,6 +254,20 @@ const parkingSpots = [
     "lat": 49.60704259649285,
     "lng": 8.1506484746933,
     "description": "Parkplatz an der Sport- und Freizeithalle Kindenheim."
+  },
+  {
+    "id": "P3",
+    "name": "P3",
+    "lat": 49.6057424,
+    "lng": 8.1535184,
+    "description": "Hundeplatz"
+  },
+  {
+    "id": "P4",
+    "name": "P4",
+    "lat": 49.611645,
+    "lng": 8.1701589,
+    "description": "Ortseingang Kindenheim"
   }
 ];
 
