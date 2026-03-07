@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <title>Galerie – Kindenheimer Kerweborsch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+        --cream: #faf7f2; --cream-dark: #f0ebe0;
+        --forest: #3d6b4a; --forest-mid: #5a8a68; --forest-light: #7aaa88;
+        --gold: #b8792a; --gold-light: #c99040; --gold-pale: #f5e6c8;
+        --text: #1c1c1c; --text-muted: #484848; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: var(--forest); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 58px; }
+    .nav-back { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--gold-light); }
+    .nav-brand { font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1rem; font-weight: 700; text-decoration: none; }
+    .hero-sub { min-height: 38vh; background: var(--forest); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 7rem 2rem 4rem; }
+    .hero-sub .icon { font-size: 4rem; margin-bottom: 1rem; }
+    .hero-sub h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 7vw, 3.5rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 0.75rem; }
+    .hero-sub p { color: rgba(255,255,255,0.92); font-size: 1rem; max-width: 480px; line-height: 1.7; }
+    .content { max-width: 900px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+    .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .event-card { background: var(--forest); color: var(--white); text-decoration: none; border-radius: 14px; padding: 2rem 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .event-card:hover { background: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+    .event-card .emoji { font-size: 3rem; }
+    .event-card .name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; text-align: center; }
+    footer { background: #111e12; padding: 2rem; text-align: center; }
+    footer p { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+    footer span { color: var(--gold); opacity: 0.8; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="../" class="nav-back">← Zurück zur Startseite</a>
+    <a href="../" class="nav-brand">🎡 Kindenheimer Kerweborsch</a>
+</nav>
+<section class="hero-sub">
+    <div class="icon">🖼️</div>
+    <h1>Galerie</h1>
+    <p>Alle Fotos &amp; Videos aus unseren Events</p>
+</section>
+<div class="content">
+    <div class="event-grid">
+        <a href="/galerie/kerwe/" class="event-card">
+            <span class="emoji">🎪</span>
+            <span class="name">Kerwe</span>
+        </a>
+        <a href="/galerie/wein-per-pedes/" class="event-card">
+            <span class="emoji">🍷</span>
+            <span class="name">Wein per Pedes</span>
+        </a>
+        <a href="/galerie/kaeskuchenwanderung/" class="event-card">
+            <span class="emoji">🧀</span>
+            <span class="name">Käskuchenwanderung</span>
+        </a>
+        <a href="/galerie/vatertag/" class="event-card">
+            <span class="emoji">👨‍👦</span>
+            <span class="name">Vatertag</span>
+        </a>
+        <a href="/galerie/mai/" class="event-card">
+            <span class="emoji">🌸</span>
+            <span class="name">1. Mai</span>
+        </a>
+        <a href="/galerie/meets-x/" class="event-card">
+            <span class="emoji">🎉</span>
+            <span class="name">KKB Meets X</span>
+        </a>
+    </div>
+</div>
+<footer>
+    <p>© 2026 <span>Kindenheimer Kerweborsch</span></p>
+</footer>
+</body>
+</html>
