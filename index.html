@@ -382,10 +382,20 @@
 
         /* ── GALERIE ── */
         #galerie { background: var(--cream); }
-        .event-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
-        .event-gallery-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; background: var(--forest); color: var(--white); border-radius: 16px; padding: 2rem 1rem; text-decoration: none; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; text-align: center; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 18px rgba(61,107,74,0.15); }
-        .event-gallery-card:hover { background: var(--gold); transform: translateY(-3px); }
-        .event-gallery-card .egc-emoji { font-size: 2.5rem; }
+        .event-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+        @media(max-width:700px) { .event-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width:420px) { .event-gallery-grid { grid-template-columns: 1fr; } }
+        .event-gallery-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; border-radius: 18px; overflow: hidden; text-decoration: none; aspect-ratio: 3/4; box-shadow: 0 6px 24px rgba(0,0,0,0.18); transition: transform 0.2s, box-shadow 0.2s; }
+        .event-gallery-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(0,0,0,0.28); }
+        .egc-bg { position: absolute; inset: 0; background: var(--forest); transition: filter 0.3s; }
+        .event-gallery-card:hover .egc-bg { filter: brightness(1.15); }
+        .egc-bg.has-img { background-size: cover; background-position: center; }
+        .egc-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 55%, transparent 100%); }
+        .egc-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); max-width: 70%; max-height: 45%; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); transition: transform 0.2s; }
+        .event-gallery-card:hover .egc-logo { transform: translate(-50%, -65%) scale(1.05); }
+        .egc-emoji-big { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); font-size: 3.5rem; line-height: 1; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+        .egc-label { position: relative; z-index: 2; width: 100%; padding: 0.9rem 1rem 1rem; text-align: center; }
+        .egc-label span { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--white); letter-spacing: 0.02em; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
         .gallery-add { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; background: var(--forest); color: white; padding: 0.7rem 1.4rem; border-radius: 99px; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
         .gallery-add:hover { background: var(--forest-mid); }
 
@@ -566,12 +576,35 @@
         <h2 class="section-title">Galerie</h2>
         <p class="section-lead">Bilder sagen mehr als tausend Worte — hier siehst du, was uns ausmacht.</p>
         <div class="event-gallery-grid">
-            <a href="/galerie/kerwe/" class="event-gallery-card"><span class="egc-emoji">🎪</span>Kerwe</a>
-            <a href="/galerie/wein-per-pedes/" class="event-gallery-card"><span class="egc-emoji">🍷</span>Wein per Pedes</a>
-            <a href="/galerie/kaeskuchenwanderung/" class="event-gallery-card"><span class="egc-emoji">🧀</span>Käskuchenwanderung</a>
-            <a href="/galerie/vatertag/" class="event-gallery-card"><span class="egc-emoji">👨‍👦</span>Vatertag</a>
-            <a href="/galerie/mai/" class="event-gallery-card"><span class="egc-emoji">🌸</span>1. Mai</a>
-            <a href="/galerie/meets-x/" class="event-gallery-card"><span class="egc-emoji">🎉</span>KKB Meets X</a>
+            <a href="/galerie/kerwe/" class="event-gallery-card">
+                <div class="egc-bg"></div>
+                <div class="egc-emoji-big">🎪</div>
+                <div class="egc-label"><span>Kerwe</span></div>
+            </a>
+            <a href="/galerie/wein-per-pedes/" class="event-gallery-card">
+                <div class="egc-bg" style="background-color:#2a5c3a;"></div>
+                <img class="egc-logo" src="/wein-per-pedes/wppLogo.svg" alt="Wein per Pedes">
+                <div class="egc-label"><span>Wein per Pedes</span></div>
+            </a>
+            <a href="/galerie/kaeskuchenwanderung/" class="event-gallery-card">
+                <div class="egc-bg"></div>
+                <div class="egc-emoji-big">🧀</div>
+                <div class="egc-label"><span>Käskuchenwanderung</span></div>
+            </a>
+            <a href="/galerie/vatertag/" class="event-gallery-card">
+                <div class="egc-bg"></div>
+                <div class="egc-emoji-big">👨‍👦</div>
+                <div class="egc-label"><span>Vatertag</span></div>
+            </a>
+            <a href="/galerie/mai/" class="event-gallery-card">
+                <div class="egc-bg"></div>
+                <div class="egc-emoji-big">🌸</div>
+                <div class="egc-label"><span>1. Mai</span></div>
+            </a>
+            <a href="/galerie/meets-x/" class="event-gallery-card">
+                <div class="egc-bg has-img" style="background-image:url('/meets-x/banner.jpg');"></div>
+                <div class="egc-label"><span>KKB Meets X</span></div>
+            </a>
         </div>
     </div>
 </section>
