@@ -382,11 +382,10 @@
 
         /* ── GALERIE ── */
         #galerie { background: var(--cream); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
-        .gallery-item { aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; background: var(--cream-dark); display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(61,107,74,0.2); flex-direction: column; gap: 0.5rem; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: border-color 0.2s; }
-        .gallery-item:hover { border-color: var(--forest-mid); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
-        .gallery-placeholder { font-size: 2rem; }
+        .event-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+        .event-gallery-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; background: var(--forest); color: var(--white); border-radius: 16px; padding: 2rem 1rem; text-decoration: none; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; text-align: center; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 18px rgba(61,107,74,0.15); }
+        .event-gallery-card:hover { background: var(--gold); transform: translateY(-3px); }
+        .event-gallery-card .egc-emoji { font-size: 2.5rem; }
         .gallery-add { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; background: var(--forest); color: white; padding: 0.7rem 1.4rem; border-radius: 99px; font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
         .gallery-add:hover { background: var(--forest-mid); }
 
@@ -566,8 +565,13 @@
         <p class="eyebrow">Impressionen</p>
         <h2 class="section-title">Galerie</h2>
         <p class="section-lead">Bilder sagen mehr als tausend Worte — hier siehst du, was uns ausmacht.</p>
-        <div style="text-align:center;margin-top:2rem;">
-            <a href="/galerie/" class="gallery-add" style="font-size:1rem;padding:1rem 2rem;">🖼️ Zur Event-Galerie →</a>
+        <div class="event-gallery-grid">
+            <a href="/galerie/kerwe/" class="event-gallery-card"><span class="egc-emoji">🎪</span>Kerwe</a>
+            <a href="/galerie/wein-per-pedes/" class="event-gallery-card"><span class="egc-emoji">🍷</span>Wein per Pedes</a>
+            <a href="/galerie/kaeskuchenwanderung/" class="event-gallery-card"><span class="egc-emoji">🧀</span>Käskuchenwanderung</a>
+            <a href="/galerie/vatertag/" class="event-gallery-card"><span class="egc-emoji">👨‍👦</span>Vatertag</a>
+            <a href="/galerie/mai/" class="event-gallery-card"><span class="egc-emoji">🌸</span>1. Mai</a>
+            <a href="/galerie/meets-x/" class="event-gallery-card"><span class="egc-emoji">🎉</span>KKB Meets X</a>
         </div>
     </div>
 </section>
