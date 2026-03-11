@@ -127,27 +127,47 @@ const stations = [
     "name": "TVK & HSVL",
     "lat": 49.605468,
     "lng": 8.1537649,
-    "description": "Vereinsgemeinschaft mit herzlicher Atmosphäre und traditionellen Pfälzer Genüssen.",
+    "description": "HSV Leiningerland & TV Kindenheim — Selbstbedienung. Herzliche Atmosphäre mit Speisen und Kaffee & Kuchen.",
     "offerings": [
       {
-        "name": "Bratwurst vom Grill",
-        "description": "Gegrillte Pfälzer Bratwurst mit Bauernbrot und Senf",
-        "price": "4,50€"
+        "name": "Bärlauch-Bratwurst-Brötchen",
+        "description": "Bratwurst mit Bärlauch im Brötchen",
+        "price": ""
       },
       {
-        "name": "Fleischkäse im Brötchen",
-        "description": "Warmer Fleischkäse im knusprigen Brötchen",
-        "price": "4,00€"
+        "name": "Wildschwein-Bratwurst-Brötchen",
+        "description": "Bratwurst vom Wildschwein im Brötchen",
+        "price": ""
       },
       {
-        "name": "Weinschorle",
-        "description": "Weiß oder rot, nach Wahl",
-        "price": "3,00€/Glas"
+        "name": "Kartoffelsuppe",
+        "description": "Deftige Kartoffelsuppe",
+        "price": ""
       },
       {
-        "name": "Kaffee und Kuchen",
-        "description": "Hausgemachter Kuchen nach Tagesangebot",
-        "price": "3,50€"
+        "name": "Futterschoppen",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Brezel",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Kaffee",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Kuchen oder Muffin",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Torte",
+        "description": "",
+        "price": ""
       }
     ]
   },
