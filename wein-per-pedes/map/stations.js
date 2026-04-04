@@ -9,24 +9,29 @@ const stations = [
     "description": "Traditionelles Familienweingut mit langer Geschichte und feinsten Weinen aus der Pfalz.",
     "offerings": [
       {
-        "name": "2021 Riesling Kabinett trocken",
-        "description": "Fruchtig-frisch mit feiner Mineralität und Apfelnoten",
-        "price": "4,50€/Glas"
+        "name": "Bratwurst",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "2022 Weißburgunder trocken",
-        "description": "Eleganter Weißwein mit Aromen von Birne und Quitte",
-        "price": "4,00€/Glas"
+        "name": "Currywurst",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Pfälzer Winzerbrot mit Schmalz",
-        "description": "Hausgemachtes Bauernbrot mit frischem Schmalz und Zwiebeln",
-        "price": "5,50€"
+        "name": "Pommes",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Winzersekt Cuvée brut",
-        "description": "Feiner Sekt aus Riesling und Weißburgunder, perlend und frisch",
-        "price": "5,00€/Glas"
+        "name": "Vegetarische Panino",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Kaffee & Kuchen",
+        "description": "",
+        "price": ""
       }
     ]
   },
@@ -38,58 +43,58 @@ const stations = [
     "description": "Modernes Familienweingut in dritter Generation mit Fokus auf regionaltypische Weine und nachhaltigem Anbau in den besten Lagen von Bockenheim.",
     "offerings": [
       {
-        "name": "2022 Silvaner trocken",
-        "description": "Charaktervoller Weißwein mit feiner Kräuternote und mineralischem Abgang",
-        "price": "4,50€/Glas"
+        "name": "Bratwurstbrötchen",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "2021 Grauburgunder \"Kalkstein\"",
-        "description": "Cremiger Weißwein mit Aromen von reifen Birnen und Haselnuss",
-        "price": "5,00€/Glas"
+        "name": "Saumagen",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "2020 Spätburgunder Reserve",
-        "description": "Eleganter Rotwein mit Noten von Kirsche und einer feinen Holznote",
-        "price": "6,50€/Glas"
+        "name": "Kartoffelpfannkuchen mit Kräuterquark oder Apfelmus",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Pfälzer Saumagen",
-        "description": "Regionale Spezialität nach traditionellem Rezept der Familie Griebel",
-        "price": "8,50€"
-      },
-      {
-        "name": "Winzerplatte",
-        "description": "Auswahl an hausgemachten Wurst- und Käsespezialitäten mit Bauernbrot",
-        "price": "9,50€"
+        "name": "Käsewürfel",
+        "description": "",
+        "price": ""
       }
     ]
   },
   {
     "id": 3,
-    "name": "Weingut Lauerman & Weyer",
+    "name": "Weingut Lauermann & Weyer",
     "lat": 49.60104389956821,
     "lng": 8.169005513191225,
     "description": "Innovative Weinmanufaktur mit modernen Interpretationen klassischer Pfälzer Rebsorten.",
     "offerings": [
       {
-        "name": "2022 Grauburgunder Spätlese",
-        "description": "Vollmundig mit tropischen Fruchtnoten und feiner Restsüße",
-        "price": "5,00€/Glas"
+        "name": "Wildbratwurst mit Brötchen",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "2021 Spätburgunder Rosé",
-        "description": "Frischer Sommerwein mit Aromen von roten Beeren",
-        "price": "4,50€/Glas"
+        "name": "Brutzelfleisch mit Kräuterquark",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Flammkuchen \"Elsässer Art\"",
-        "description": "Mit Speck, Zwiebeln und Schmand auf dünnem Teig",
-        "price": "7,50€"
+        "name": "Champignons mit Kräuterquark",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Merlot vom Fass",
-        "description": "Harmonischer Rotwein mit weichen Tanninen und Brombeeraromen",
-        "price": "5,50€/Glas"
+        "name": "Brezel",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Kaffee und Kuchen",
+        "description": "",
+        "price": ""
       }
     ]
   },
@@ -101,47 +106,62 @@ const stations = [
     "description": "Die Kerweborsch sorgen mit traditionellen Speisen und guter Stimmung für echtes Dorffest-Feeling.",
     "offerings": [
       {
-        "name": "Hausmacher Bratwurst",
-        "description": "Deftige Pfälzer Bratwurst vom Grill mit Bauernbrot",
-        "price": "4,50€"
+        "name": "Bratwurst",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Dampfnudeln mit Weinsoße",
-        "description": "Süße Spezialität nach altem Familienrezept",
-        "price": "5,50€"
+        "name": "Feuerwurst",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Pfälzer Schorle",
-        "description": "Klassische Weinschorle aus Riesling, erfrischend und süffig",
-        "price": "3,00€/Glas"
+        "name": "Steak und Saumagen im Brötchen",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Kerwekuchen",
-        "description": "Traditioneller Streuselkuchen nach altem Dorfrezept",
-        "price": "2,50€/Stück"
+        "name": "Saumagenburger",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Pommes Brezeln",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Käsespieße",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Pfefferbeißer",
+        "description": "",
+        "price": ""
       }
     ]
   },
   {
     "id": 5,
-    "name": "TVK & HSVL",
+    "name": "TV Kindenheim 1920 e.V. & HSVL Kindenheim e.V.",
     "lat": 49.605468,
     "lng": 8.1537649,
-    "description": "HSV Leiningerland & TV Kindenheim — Selbstbedienung. Herzliche Atmosphäre mit Speisen und Kaffee & Kuchen.",
+    "description": "TV Kindenheim 1920 e.V. & HSVL Kindenheim e.V. — Herzliche Atmosphäre mit Speisen und Kaffee & Kuchen.",
     "offerings": [
       {
-        "name": "Bärlauch-Bratwurst-Brötchen",
-        "description": "Bratwurst mit Bärlauch im Brötchen",
+        "name": "Wildschwein Bratwurst",
+        "description": "",
         "price": ""
       },
       {
-        "name": "Wildschwein-Bratwurst-Brötchen",
-        "description": "Bratwurst vom Wildschwein im Brötchen",
+        "name": "Bärlauch Bratwurst",
+        "description": "",
         "price": ""
       },
       {
         "name": "Kartoffelsuppe",
-        "description": "Deftige Kartoffelsuppe",
+        "description": "",
         "price": ""
       },
       {
@@ -155,17 +175,7 @@ const stations = [
         "price": ""
       },
       {
-        "name": "Kaffee",
-        "description": "",
-        "price": ""
-      },
-      {
-        "name": "Kuchen oder Muffin",
-        "description": "",
-        "price": ""
-      },
-      {
-        "name": "Torte",
+        "name": "Kaffee und Kuchen",
         "description": "",
         "price": ""
       }
@@ -179,24 +189,44 @@ const stations = [
     "description": "Prämiertes Weingut mit Fokus auf nachhaltigem Weinbau und charaktervollen Weinen.",
     "offerings": [
       {
-        "name": "2022 Sauvignon Blanc",
-        "description": "Frischer Weißwein mit Noten von Stachelbeeren und Zitrusfrüchten",
-        "price": "5,50€/Glas"
+        "name": "Winzersteak",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "2020 Merlot Barrique",
-        "description": "Im Eichenfass gereift, mit samtigen Tanninen und Vanillearomen",
-        "price": "6,00€/Glas"
+        "name": "Bratwurst",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Pfälzer Wurstsalat",
-        "description": "Traditioneller Wurstsalat mit Käse, Zwiebeln und Essig-Öl-Dressing",
-        "price": "6,50€"
+        "name": "Pommes",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Käseauswahl",
-        "description": "Regionale Käsesorten mit Weintrauben und Walnüssen",
-        "price": "8,50€"
+        "name": "Winzerspieß",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Spundekäs",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Laugenstange",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Flammkuchen",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Kaffee und Kuchen",
+        "description": "",
+        "price": ""
       }
     ]
   },
@@ -208,24 +238,14 @@ const stations = [
     "description": "Kleines Familienweingut mit liebevoll ausgebauten Weinen und persönlicher Beratung.",
     "offerings": [
       {
-        "name": "2022 Gewürztraminer Spätlese",
-        "description": "Aromatischer Weißwein mit Rosennoten und exotischen Früchten",
-        "price": "5,00€/Glas"
+        "name": "Pulled Pork Burger",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "2021 Cabernet Sauvignon",
-        "description": "Kräftiger Rotwein mit Aromen von schwarzen Johannisbeeren",
-        "price": "5,50€/Glas"
-      },
-      {
-        "name": "Winzerplatte",
-        "description": "Wurst- und Käseauswahl mit hausgemachten Chutneys",
-        "price": "9,00€"
-      },
-      {
-        "name": "Zwiebelkuchen",
-        "description": "Traditioneller Pfälzer Zwiebelkuchen nach Familienrezept",
-        "price": "4,50€/Stück"
+        "name": "Langos",
+        "description": "",
+        "price": ""
       }
     ]
   },
@@ -237,24 +257,29 @@ const stations = [
     "description": "Traditionsweingut in vierter Generation mit Fokus auf elegante und langlebige Weine.",
     "offerings": [
       {
-        "name": "2021 Chardonnay Réserve",
-        "description": "Edler Weißwein mit Holznoten und reifer Frucht, im Barrique gereift",
-        "price": "6,00€/Glas"
+        "name": "Winzerröllchen",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "2020 Cuvée Rot \"Heimaterde\"",
-        "description": "Kraftvolle Cuvée aus Merlot, Cabernet und Dornfelder",
-        "price": "5,50€/Glas"
+        "name": "Currywurst",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Saumagen",
-        "description": "Pfälzer Spezialität, deftig und würzig",
-        "price": "8,50€"
+        "name": "Bratwurst",
+        "description": "",
+        "price": ""
       },
       {
-        "name": "Winzersekt Rosé",
-        "description": "Eleganter Sekt aus Spätburgunder, zart und fruchtig",
-        "price": "5,00€/Glas"
+        "name": "Spundekäse mit Laugenstange",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Kaffee und Kuchen",
+        "description": "",
+        "price": ""
       }
     ]
   }
