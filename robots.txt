@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kindenheimer-kerweborsch.de/sitemap.xml
