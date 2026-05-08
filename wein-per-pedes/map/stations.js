@@ -186,7 +186,7 @@ const stations = [
     "name": "Weingut Gernot Weber",
     "lat": 49.608283614054756,
     "lng": 8.154631555080416,
-    "description": "Prämiertes Weingut mit Fokus auf nachhaltigem Weinbau und charaktervollen Weinen.",
+    "description": "Traditionelles Weingut mit Kutschfahrten und herzlicher Pfälzer Gastlichkeit.",
     "offerings": [
       {
         "name": "Winzersteak",
