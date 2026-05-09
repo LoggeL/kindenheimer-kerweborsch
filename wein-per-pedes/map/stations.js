@@ -126,7 +126,12 @@ const stations = [
         "price": ""
       },
       {
-        "name": "Pommes Brezeln",
+        "name": "Pommes",
+        "description": "",
+        "price": ""
+      },
+      {
+        "name": "Brezeln",
         "description": "",
         "price": ""
       },
