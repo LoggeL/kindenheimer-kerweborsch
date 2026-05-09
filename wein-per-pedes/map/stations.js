@@ -6,7 +6,7 @@ const stations = [
     "name": "Weingut Heiser-Buchner",
     "lat": 49.60983032162279,
     "lng": 8.180480003356935,
-    "description": "Traditionelles Familienweingut mit langer Geschichte und feinsten Weinen aus der Pfalz.",
+    "description": "",
     "offerings": [
       {
         "name": "Bratwurst",
@@ -40,7 +40,7 @@ const stations = [
     "name": "Weingut Jens Griebel",
     "lat": 49.606946998591404,
     "lng": 8.172918856143953,
-    "description": "Modernes Familienweingut in dritter Generation mit Fokus auf regionaltypische Weine und nachhaltigem Anbau in den besten Lagen von Bockenheim.",
+    "description": "",
     "offerings": [
       {
         "name": "Bratwurstbrötchen",
@@ -69,7 +69,7 @@ const stations = [
     "name": "Weingut Lauermann & Weyer",
     "lat": 49.60104389956821,
     "lng": 8.169005513191225,
-    "description": "Innovative Weinmanufaktur mit modernen Interpretationen klassischer Pfälzer Rebsorten.",
+    "description": "",
     "offerings": [
       {
         "name": "Wildbratwurst mit Brötchen",
@@ -103,7 +103,7 @@ const stations = [
     "name": "Kindenheimer Kerweborsch",
     "lat": 49.60061422768533,
     "lng": 8.16139340400696,
-    "description": "Die Kerweborsch sorgen mit traditionellen Speisen und guter Stimmung für echtes Dorffest-Feeling.",
+    "description": "",
     "offerings": [
       {
         "name": "Bratwurst",
@@ -152,7 +152,7 @@ const stations = [
     "name": "TV Kindenheim 1920 e.V. & HSVL Kindenheim e.V.",
     "lat": 49.605468,
     "lng": 8.1537649,
-    "description": "TV Kindenheim 1920 e.V. & HSVL Kindenheim e.V. — Herzliche Atmosphäre mit Speisen und Kaffee & Kuchen.",
+    "description": "",
     "offerings": [
       {
         "name": "Wildschwein Bratwurst",
@@ -191,7 +191,7 @@ const stations = [
     "name": "Weingut Gernot Weber",
     "lat": 49.608283614054756,
     "lng": 8.154631555080416,
-    "description": "Traditionelles Weingut mit Kutschfahrten und herzlicher Pfälzer Gastlichkeit.",
+    "description": "",
     "offerings": [
       {
         "name": "Winzersteak",
@@ -240,7 +240,7 @@ const stations = [
     "name": "Weingut Schur",
     "lat": 49.607266816289865,
     "lng": 8.161852061748506,
-    "description": "Kleines Familienweingut mit liebevoll ausgebauten Weinen und persönlicher Beratung.",
+    "description": "",
     "offerings": [
       {
         "name": "Pulled Pork Burger",
@@ -259,7 +259,7 @@ const stations = [
     "name": "Weingut Benß",
     "lat": 49.60975054645064,
     "lng": 8.171993494033815,
-    "description": "Traditionsweingut in vierter Generation mit Fokus auf elegante und langlebige Weine.",
+    "description": "",
     "offerings": [
       {
         "name": "Winzerröllchen",

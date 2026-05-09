@@ -208,11 +208,7 @@
     dom.panelTitle.textContent = station.name;
     dom.panelContent.innerHTML = '';
 
-    // Description
-    const desc = document.createElement('p');
-    desc.className = 'station-description';
-    desc.textContent = station.description;
-    dom.panelContent.appendChild(desc);
+    // Station descriptions intentionally hidden; only offerings are shown.
 
     // Offerings
     if (station.offerings?.length) {
@@ -243,7 +239,6 @@
         <h4 class="offering-name">${escapeHtml(offering.name)}</h4>
         <span class="offering-price">${escapeHtml(offering.price)}</span>
       </div>
-      <p class="offering-description">${escapeHtml(offering.description)}</p>
     `;
 
     return card;

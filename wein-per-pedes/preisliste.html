@@ -218,7 +218,7 @@
       const card = document.createElement('article');
       card.className = 'station';
       const items = station.offerings.map(o => `<li><span>${o.name}</span><span class="price">${o.price || ''}</span></li>`).join('');
-      card.innerHTML = `<h2>${station.name}</h2><p>${station.description || ''}</p><ul>${items}</ul>`;
+      card.innerHTML = `<h2>${station.name}</h2><ul>${items}</ul>`;
       root.appendChild(card);
     });
   </script>
