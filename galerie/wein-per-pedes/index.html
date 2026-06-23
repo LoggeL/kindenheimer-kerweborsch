@@ -47,7 +47,9 @@
     .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
     .media-item { border-radius: 10px; overflow: hidden; background: #111; aspect-ratio: 4/3; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
     .media-item:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-    .media-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media-item img, .media-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media-item.video-item { cursor: default; }
+    .media-item.video-item:hover { transform: none; box-shadow: none; }
     @media (max-width: 768px) { .media-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 480px) { .media-grid { grid-template-columns: 1fr; } }
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; padding: 2rem; }
@@ -78,6 +80,12 @@
         </div>
         <div class="media-item" onclick="openLightbox(this)" data-src="../../wein-per-pedes/gallery/wpp-gallery-2.jpg">
             <img src="../../wein-per-pedes/gallery/wpp-gallery-2.jpg" alt="Wein per Pedes 2026 – Foto 2">
+        </div>
+        <div class="media-item" onclick="openLightbox(this)" data-src="../../wein-per-pedes/gallery/wpp-gallery-3.jpg">
+            <img src="../../wein-per-pedes/gallery/wpp-gallery-3.jpg" alt="Wein per Pedes 2026 – Foto 3">
+        </div>
+        <div class="media-item video-item">
+            <video src="../../wein-per-pedes/gallery/wpp-gallery-video-1.mp4" controls playsinline preload="metadata"></video>
         </div>
     </div>
 </div>
