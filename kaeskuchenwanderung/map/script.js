@@ -870,9 +870,10 @@
   }
 
   // ============================================
-  // Dev Mode (hidden: ?dev=1)
+  // Dev Mode Fine-Tune (hidden: ?dev=1 — legacy, kept for compat)
+  // Renamed to avoid collision with the main initDevMode above.
   // ============================================
-  function initDevMode() {
+  function initDevModeFineTune() {
     if (new URLSearchParams(window.location.search).get('dev') !== '1') return;
 
     // Dev panel
@@ -1078,6 +1079,7 @@
     initAboutModal();
     initDevMode();
     initDevMode2();
+    // initDevModeFineTune() intentionally not called — conflicts with initDevMode.
   }
 
   // Start when DOM is ready
