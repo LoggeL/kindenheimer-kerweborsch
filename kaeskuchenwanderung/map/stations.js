@@ -1,48 +1,12 @@
-// stations.js — exportiert via Dev-Modus 2026-08-07
+// stations.js — Käskuchenwanderung Kindenheim · 2026-08-07
 
 const stations = [
- {
- "id": 1,
- "name": "Weingut Stahlheber",
- "lat": 49.6097766,
- "lng": 8.1584805,
- "description": ""
- },
- {
- "id": 2,
- "name": "Weingut Gernot Weber",
- "lat": 49.6106335,
- "lng": 8.1536874,
- "description": ""
- },
- {
- "id": 3,
- "name": "Kindenheimer Kerweborsch",
- "lat": 49.6129345,
- "lng": 8.1573728,
- "description": ""
- },
- {
- "id": 4,
- "name": "Oase 2.0",
- "lat": 49.6150478,
- "lng": 8.1664011,
- "description": ""
- },
- {
- "id": 5,
- "name": "Weingut Christmann",
- "lat": 49.6122168,
- "lng": 8.1637779,
- "description": ""
- },
- {
- "id": 6,
- "name": "Weingut Schur",
- "lat": 49.6099852,
- "lng": 8.1604519,
- "description": ""
- }
+ { "id": 1, "name": "Weingut Stahlheber", "lat": 49.6097766, "lng": 8.1584805, "description": "" },
+ { "id": 2, "name": "Weingut Gernot Weber", "lat": 49.6106335, "lng": 8.1536874, "description": "" },
+ { "id": 3, "name": "Kindenheimer Kerweborsch", "lat": 49.6129345, "lng": 8.1573728, "description": "" },
+ { "id": 4, "name": "Oase 2.0", "lat": 49.6150478, "lng": 8.1664011, "description": "" },
+ { "id": 5, "name": "Weingut Christmann", "lat": 49.6122168, "lng": 8.1637779, "description": "" },
+ { "id": 6, "name": "Weingut Schur", "lat": 49.6099852, "lng": 8.1604519, "description": "" }
 ];
 
 const parkingSpots = [];
@@ -124,4 +88,14 @@ const walkingPath = [
  { "lat": 49.6107656, "lng": 8.1583571 },
  { "lat": 49.6105709, "lng": 8.1581613 },
  { "lat": 49.6099209, "lng": 8.1584188 }
+];
+
+// Alternativer Weg (zweigt bei Punkt 62 ab)
+const altPath = [
+ { "lat": 49.6114694, "lng": 8.161557 },   // Punkt 62 (Abzweigung)
+ { "lat": 49.6110906, "lng": 8.1599692 },   // Punkt 71
+ { "lat": 49.6108038, "lng": 8.1587756 },   // Punkt 72
+ { "lat": 49.6107656, "lng": 8.1583571 },   // Punkt 73
+ { "lat": 49.6105709, "lng": 8.1581613 },   // Punkt 74
+ { "lat": 49.6099209, "lng": 8.1584188 }     // Punkt 75
 ];

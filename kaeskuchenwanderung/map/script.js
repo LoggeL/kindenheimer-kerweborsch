@@ -82,6 +82,7 @@
     }).addTo(state.map);
 
     addWalkingPath();
+    addAltPath();
     addStationMarkers();
     addParkingMarkers();
     setupMapEvents();
@@ -114,6 +115,19 @@
       iconAnchor: [16, 42],
       popupAnchor: [0, -42]
     });
+  }
+
+  function addAltPath() {
+    if (!altPath?.length) return;
+    const coords = altPath.map(p => [p.lat, p.lng]);
+    L.polyline(coords, {
+      color: '#c99040',
+      weight: 5,
+      opacity: 0.85,
+      dashArray: '12, 8',
+      lineJoin: 'round',
+      lineCap: 'round'
+    }).addTo(state.map);
   }
 
   function addStationMarkers() {
