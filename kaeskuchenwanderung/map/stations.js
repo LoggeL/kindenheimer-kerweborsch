@@ -1,12 +1,12 @@
 // stations.js — Käskuchenwanderung Kindenheim · 2026-08-07
 
 const stations = [
- { "id": 1, "name": "Weingut Stahlheber", "lat": 49.6097766, "lng": 8.1584805, "description": "" },
- { "id": 2, "name": "Weingut Gernot Weber", "lat": 49.6106335, "lng": 8.1536874, "description": "" },
- { "id": 3, "name": "Kindenheimer Kerweborsch", "lat": 49.6129345, "lng": 8.1573728, "description": "" },
- { "id": 4, "name": "Oase 2.0", "lat": 49.6150478, "lng": 8.1664011, "description": "" },
- { "id": 5, "name": "Weingut Christmann", "lat": 49.6122168, "lng": 8.1637779, "description": "" },
- { "id": 6, "name": "Weingut Schur", "lat": 49.6099852, "lng": 8.1604519, "description": "" }
+ { "id": 1, "name": "Weingut Christmann", "lat": 49.6122168, "lng": 8.1637779, "description": "" },
+ { "id": 2, "name": "Weingut Schur", "lat": 49.6099852, "lng": 8.1604519, "description": "" },
+ { "id": 3, "name": "Weingut Stahlheber", "lat": 49.6097766, "lng": 8.1584805, "description": "" },
+ { "id": 4, "name": "Weingut Gernot Weber", "lat": 49.6106335, "lng": 8.1536874, "description": "" },
+ { "id": 5, "name": "Kindenheimer Kerweborsch", "lat": 49.6129345, "lng": 8.1573728, "description": "" },
+ { "id": 6, "name": "Oase 2.0", "lat": 49.6150478, "lng": 8.1664011, "description": "" }
 ];
 
 const parkingSpots = [];
