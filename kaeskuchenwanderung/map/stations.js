@@ -1,12 +1,24 @@
 // stations.js — Käskuchenwanderung Kindenheim · 2026-08-07
 
 const stations = [
- { "id": 1, "name": "Weingut Christmann", "lat": 49.6122168, "lng": 8.1637779, "description": "" },
- { "id": 2, "name": "Weingut Schur", "lat": 49.6099852, "lng": 8.1604519, "description": "" },
- { "id": 3, "name": "Weingut Stahlheber", "lat": 49.6097766, "lng": 8.1584805, "description": "" },
- { "id": 4, "name": "Weingut Gernot Weber", "lat": 49.6106335, "lng": 8.1536874, "description": "" },
- { "id": 5, "name": "Kindenheimer Kerweborsch", "lat": 49.6129345, "lng": 8.1573728, "description": "" },
- { "id": 6, "name": "Oase 2.0", "lat": 49.6150478, "lng": 8.1664011, "description": "" }
+ { "id": 1, "name": "Weingut Jens Christmann", "lat": 49.6122168, "lng": 8.1637779, "description": "", "offerings": [
+   {"name":"Würzbraten mit Beilagen","price":""},{"name":"Hausgemachte Winzer-Frikadellen mit Beilagen","price":""},{"name":"Wurstsalat mit Pommes Frites","price":""},{"name":"Pasta alla Genovese / Calabrese","price":""},{"name":"Spinatknödel","price":""}
+ ]},
+ { "id": 2, "name": "Weingut Schur", "lat": 49.6099852, "lng": 8.1604519, "description": "", "offerings": [
+   {"name":"Käsevariation und Schnitzel","price":""},{"name":"Salatteller und Wurstsalat","price":""},{"name":"Handkäs mit Musik","price":""},{"name":"Gebackener Schafskäse","price":""},{"name":"Kaffeespezialitäten","price":""}
+ ]},
+ { "id": 3, "name": "Weingut Stahlheber", "lat": 49.6097766, "lng": 8.1584805, "description": "", "offerings": [
+   {"name":"Frisch geräucherte Forelle mit Beilagen","price":""},{"name":"Handgemachter Flammkuchen in verschiedenen Variationen","price":""},{"name":"Sommerlicher Salat","price":""},{"name":"Elisa’s Kaffeestübchen","price":""}
+ ]},
+ { "id": 4, "name": "Weingut Gernot Weber", "lat": 49.6106335, "lng": 8.1536874, "description": "", "offerings": [
+   {"name":"Winzer-Spieß und Winzer-Steak","price":""},{"name":"Bratwurst und Pommes Frites","price":""},{"name":"Spundekäs mit Laugenstange","price":""},{"name":"Hausgemachte Pizzen","price":""}
+ ]},
+ { "id": 5, "name": "Kinneremer Kerweborsch", "lat": 49.6129345, "lng": 8.1573728, "description": "", "offerings": [
+   {"name":"Bratwurst","price":""},{"name":"Feuerwurst oder Steak im Brötchen","price":""},{"name":"Saumagenburger","price":""},{"name":"Pommes Frites","price":""}
+ ]},
+ { "id": 6, "name": "Oase 2.0", "lat": 49.6150478, "lng": 8.1664011, "description": "", "offerings": [
+   {"name":"Rohbeißer","price":""},{"name":"Brotzeit","price":""}
+ ]}
 ];
 
 const parkingSpots = [];

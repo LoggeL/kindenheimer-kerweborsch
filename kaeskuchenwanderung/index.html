@@ -68,6 +68,12 @@
     .station-list { list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.75rem; margin:1rem 0 2rem; }
     .station-list li { background:var(--white); border-radius:8px; padding:.85rem 1.1rem; font-size:.9rem; border:1px solid rgba(61,107,74,.12); display:flex; align-items:center; gap:.5rem; box-shadow:0 1px 4px rgba(0,0,0,.04); }
     .station-list li::before { content:"🍷"; }
+    .program-box { background:var(--white); border-radius:12px; padding:1.5rem; margin:1.25rem 0 2rem; border:1px solid rgba(61,107,74,.15); box-shadow:0 2px 10px rgba(0,0,0,.05); }
+    .program-box p { margin:.35rem 0; }
+    .offer-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin:1rem 0 2rem; }
+    .offer-card { background:var(--white); border-radius:10px; padding:1.2rem; border-top:4px solid var(--gold); box-shadow:0 1px 6px rgba(0,0,0,.05); }
+    .offer-card h3 { color:var(--forest); font-family:'Playfair Display',serif; font-size:1.05rem; margin-bottom:.55rem; }
+    .offer-card p { font-size:.86rem; line-height:1.55; margin:0; }
     .ig-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--forest); color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; font-size: 0.9rem; margin-top: 1.5rem; transition: background 0.2s; }
     .ig-btn:hover { background: var(--forest-mid); }
     footer { background: #111e12; padding: 2rem; text-align: center; }
@@ -96,14 +102,22 @@
     </div>
     <a href="https://maps.google.com/?q=Sport+und+Freizeithalle+67271+Kindenheim" target="_blank" rel="noopener" class="info-card-link"><div class="info-card">
         <div class="label">📍 Start & Ziel</div>
-        <div class="value">Kindenheim</div>
-        <div class="sub">Dorfplatz</div>
+        <div class="value">Sport- & Freizeithalle</div>
+        <div class="sub">Andingstraße 5, Kindenheim</div>
     </div></a>
     <div class="info-card">
         <div class="label">📏 Strecke</div>
-        <div class="value">ca. 5–8 km</div>
-        <div class="sub">Durch die Weinberge</div>
+        <div class="value">ca. 3 km</div>
+        <div class="sub">Panorama-Rundweg</div>
     </div>
+</div>
+
+<h2>Programm 2026</h2>
+<div class="program-box">
+  <p><strong>10:00 Uhr:</strong> Festgottesdienst auf dem Vorplatz der Sport- und Freizeithalle</p>
+  <p>Begrüßung durch Ortsbürgermeister <strong>Albrecht Wiegner</strong> und die Weingräfin des Leiningerlandes <strong>Lotte Heiner</strong>.</p>
+  <p>Anschließend eröffnet <strong>„Miss Käskuche“ Klara Christmann</strong> die Wanderstrecke.</p>
+  <p><strong>18:00 Uhr:</strong> Gewinnspiel-Auslosung an Stand 1.</p>
 </div>
 
 <h2>Die Kinneremer Käskuche</h2>
@@ -132,14 +146,17 @@
 </a>
 
 <h2>Weinstände</h2>
-<ul class="station-list">
-  <li>1 · Weingut Christmann</li>
-  <li>2 · Weingut Schur</li>
-  <li>3 · Weingut Stahlheber</li>
-  <li>4 · Weingut Gernot Weber</li>
-  <li>5 · Kindenheimer Kerweborsch</li>
-  <li>6 · Oase 2.0</li>
-</ul>
+<div class="offer-grid">
+  <div class="offer-card"><h3>1 · Weingut Jens Christmann</h3><p>Würzbraten, Winzer-Frikadellen, Wurstsalat mit Pommes, Pasta und Spinatknödel</p></div>
+  <div class="offer-card"><h3>2 · Weingut Schur</h3><p>Käsevariation, Schnitzel, Salate, Handkäs mit Musik, gebackener Schafskäse und Kaffeespezialitäten</p></div>
+  <div class="offer-card"><h3>3 · Weingut Stahlheber</h3><p>Geräucherte Forelle, Flammkuchen, sommerlicher Salat und Elisa’s Kaffeestübchen</p></div>
+  <div class="offer-card"><h3>4 · Weingut Gernot Weber</h3><p>Winzer-Spieß, Winzer-Steak, Bratwurst, Pommes, Spundekäs, Laugenstange und hausgemachte Pizzen</p></div>
+  <div class="offer-card"><h3>5 · Kinneremer Kerweborsch</h3><p>Bratwurst, Feuerwurst oder Steak im Brötchen, Saumagenburger und Pommes</p></div>
+  <div class="offer-card"><h3>6 · Oase 2.0</h3><p>Rohbeißer und Brotzeit</p></div>
+</div>
+
+<div class="highlight-box"><p>🐝 Zusätzlich gibt es Kindenheimer Honig: Bei Melissa Redmers erfährst du Wissenswertes zur Imkerei und kannst eine Kostprobe genießen.</p></div>
+<div class="highlight-box"><p>🏛️ Veranstalter ist die <strong>Ortsgemeinde Kindenheim</strong>. Schirmherr: Ortsbürgermeister Albrecht Wiegner.</p></div>
 
 <a href="/galerie/kaeskuchenwanderung/" class="ig-btn">📸 Bilder der Käskuchenwanderung ansehen →</a>
 
