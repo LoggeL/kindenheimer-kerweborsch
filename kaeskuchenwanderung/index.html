@@ -59,13 +59,21 @@
     .day-card .date-hint { font-size: 0.8rem; color: var(--gold); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
     .day-card p { font-size: 0.9rem; color: #484848; line-height: 1.65; }
     .placeholder { border: 2px dashed rgba(61,107,74,0.25); border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: 0.75rem; }
-    .map-placeholder { width: 100%; height: 200px; background: var(--cream-dark); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: var(--text-muted); margin: 1.5rem 0; border: 1px solid rgba(61,107,74,0.1); }
+    .map-tile { display:flex; align-items:center; gap:1.5rem; background:var(--forest); color:var(--white); border-radius:16px; padding:2rem 2.5rem; text-decoration:none; margin:2rem 0; transition:transform .2s,box-shadow .2s; box-shadow:0 4px 20px rgba(61,107,74,.25); }
+    .map-tile:hover { transform:translateY(-3px); box-shadow:0 8px 32px rgba(61,107,74,.35); }
+    .map-tile-icon { font-size:3.5rem; flex-shrink:0; }
+    .map-tile h3 { font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:.35rem; color:var(--white); }
+    .map-tile p { font-size:.9rem; color:rgba(255,255,255,.94); line-height:1.55; font-weight:500; margin:0; }
+    .map-tile-arrow { margin-left:auto; font-size:1.8rem; color:var(--gold-pale); }
+    .station-list { list-style:none; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.75rem; margin:1rem 0 2rem; }
+    .station-list li { background:var(--white); border-radius:8px; padding:.85rem 1.1rem; font-size:.9rem; border:1px solid rgba(61,107,74,.12); display:flex; align-items:center; gap:.5rem; box-shadow:0 1px 4px rgba(0,0,0,.04); }
+    .station-list li::before { content:"🍷"; }
     .ig-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--forest); color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; font-size: 0.9rem; margin-top: 1.5rem; transition: background 0.2s; }
     .ig-btn:hover { background: var(--forest-mid); }
     footer { background: #111e12; padding: 2rem; text-align: center; }
     footer p { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
     footer span { color: var(--gold); opacity: 0.8; }
-    @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr 1fr; } .map-tile { flex-direction:column; text-align:center; } .map-tile-arrow { margin:0; } }
 </style>
 </head>
 <body>
@@ -74,7 +82,7 @@
     <a href="../" class="nav-brand">🎡 Kindenheimer Kerweborsch</a>
 </nav>
 <section class="hero-sub">
-    <div class="icon">🥧</div>
+    <div class="icon"><img src="../logo.svg" alt="Kindenheimer Kerweborsch Logo" style="width:90px;height:90px;display:block;margin:0 auto;"></div>
     <h1>Käskuchenwanderung</h1>
     <p>Wandern, Rätsel lösen & Käsekuchen genießen</p>
 </section>
@@ -83,8 +91,8 @@
 <div class="info-grid">
     <div class="info-card">
         <div class="label">📅 Datum</div>
-        <div class="value">Sommer</div>
-        <div class="sub">Genaues Datum folgt</div>
+        <div class="value">2. Sonntag im August</div>
+        <div class="sub">2026: 9. August</div>
     </div>
     <a href="https://maps.google.com/?q=Sport+und+Freizeithalle+67271+Kindenheim" target="_blank" rel="noopener" class="info-card-link"><div class="info-card">
         <div class="label">📍 Start & Ziel</div>
@@ -114,15 +122,24 @@
     <span class="tag">🌿 Weinberge</span>
 </div>
 
-<a href="https://www.outdooractive.com/de/route/themenweg/pfalz/kaeskuche-wanderweg-kindenheim/807247401/" target="_blank" rel="noopener"
-   style="display:flex;align-items:center;gap:0.6rem;background:#fff;border:1px solid rgba(61,107,74,0.2);
-          border-radius:10px;padding:0.85rem 1.2rem;text-decoration:none;color:#3d6b4a;
-          font-weight:700;font-size:0.9rem;margin:1.5rem 0;box-shadow:0 1px 4px rgba(0,0,0,0.06);
-          transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 12px rgba(61,107,74,0.15)'"
-   onmouseout="this.style.boxShadow='0 1px 4px rgba(0,0,0,0.06)'">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="#b8792a"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-  Käskuche-Wanderweg (3 km) auf Google Maps öffnen →
+<a href="./map/" class="map-tile">
+  <div class="map-tile-icon">🗺️</div>
+  <div class="map-tile-text">
+    <h3>Interaktive Stationskarte öffnen</h3>
+    <p>Alle 6 Weinstände, die Wanderroute und der alternative Weg auf einen Blick — mit Standortfunktion für unterwegs.</p>
+  </div>
+  <div class="map-tile-arrow">→</div>
 </a>
+
+<h2>Weinstände</h2>
+<ul class="station-list">
+  <li>Weingut Stahlheber</li>
+  <li>Weingut Gernot Weber</li>
+  <li>Kindenheimer Kerweborsch</li>
+  <li>Oase 2.0</li>
+  <li>Weingut Christmann</li>
+  <li>Weingut Schur</li>
+</ul>
 
 <a href="/galerie/kaeskuchenwanderung/" class="ig-btn">📸 Bilder der Käskuchenwanderung ansehen →</a>
 
