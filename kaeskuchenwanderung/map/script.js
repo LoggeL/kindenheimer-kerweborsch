@@ -104,11 +104,28 @@
     });
   }
 
-  function createStationIcon(stationId) {
+  function createStationIcon(stationOrId) {
+    const station = typeof stationOrId === 'object' ? stationOrId : { id: stationOrId };
+    const stationId = station.id;
+
+    if (station.type === 'honey') {
+      return L.divIcon({
+        className: 'station-marker-icon honey-marker-icon',
+        html: `<div class="honey-marker">
+          <div class="honey-marker-pin"><span>🍯</span></div>
+          <div class="honey-marker-label">Zwischenstopp</div>
+        </div>`,
+        iconSize: [76, 56],
+        iconAnchor: [38, 48],
+        popupAnchor: [0, -48]
+      });
+    }
+
     return L.divIcon({
       className: 'station-marker-icon',
       html: `<div class="station-marker">
         <div class="station-marker-pin"><i class="fas fa-wine-glass-alt"></i></div>
+        <div class="station-wc-badge" title="WC vorhanden">WC</div>
         <div class="station-marker-number">${stationId}</div>
       </div>`,
       iconSize: [32, 48],
@@ -134,7 +151,7 @@
     if (!stations?.length) return;
 
     stations.forEach(station => {
-      const icon = createStationIcon(station.id);
+      const icon = createStationIcon(station);
       const marker = L.marker([station.lat, station.lng], { icon })
         .addTo(state.map)
         .bindTooltip(station.name, { direction: 'top', offset: [0, -45] });
@@ -779,7 +796,7 @@
 
       (stations || []).forEach(station => {
         const marker = L.marker([station.lat, station.lng], {
-          icon: createStationIcon(station.id), draggable: true
+          icon: createStationIcon(station), draggable: true
         }).addTo(state.map)
           .bindTooltip(`${station.id}. ${station.name}`, { direction: 'top', offset: [0, -45] });
         marker.on('dragend', () => {
@@ -924,7 +941,7 @@
     state.markers.forEach(m => state.map.removeLayer(m));
     state.markers = [];
     stations.forEach(station => {
-      const icon = createStationIcon(station.id);
+      const icon = createStationIcon(station);
       const marker = L.marker([station.lat, station.lng], { icon, draggable: true })
         .addTo(state.map)
         .bindTooltip(station.name, { direction: 'top', offset: [0, -45] });

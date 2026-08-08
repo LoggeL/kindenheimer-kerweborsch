@@ -18,10 +18,15 @@ const stations = [
  ]},
  { "id": 6, "name": "Oase 2.0", "lat": 49.6150478, "lng": 8.1664011, "description": "", "offerings": [
    {"name":"Rohbeißer","price":""},{"name":"Brotzeit","price":""}
+ ]},
+ { "id": 7, "name": "Honig-Zwischenstopp (Name folgt)", "lat": 49.6129832, "lng": 8.1657654, "description": "Kein Weinstand – hier gibt es Kindenheimer Honig und Wissenswertes zur Imkerei.", "type": "honey", "offerings": [
+   {"name":"Kindenheimer Honig und Kostprobe","price":""}
  ]}
 ];
 
-const parkingSpots = [];
+const parkingSpots = [
+ { "id": "P1", "name": "Sport- und Freizeithalle", "lat": 49.6123888, "lng": 8.163743, "description": "Parkplatz am Start- und Zielbereich" }
+];
 
 const walkingPath = [
  { "lat": 49.6098531, "lng": 8.1584591 },
